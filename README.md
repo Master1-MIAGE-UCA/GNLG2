@@ -1,2 +1,2 @@
-### Project Genealogy Web App
-## By team GNLG2 
+# Project Genealogy Web App
+### By team GNLG2 
