@@ -1,0 +1,122 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "i18n": "Dashboard",
+      "class": "waves-effect waves-cyan",
+      "icon": "settings_input_svideo",
+      "slug": "dashboard"
+    },
+    {
+      "url": "javascript:void(0)",
+      "name": "DepartmentsServices",
+      "i18n": "DepartmentsServices",
+      "class": "collapsible-header waves-effect waves-cyan",
+      "icon": "local_hotel",
+      "slug": "DepartmentsServices",
+      "submenu": [
+        {
+          "url": "/departments",
+          "name": "Departments",
+          "i18n": "Departments",
+          "slug": "departments"
+        },
+        {
+          "url": "/services",
+          "name": "Services",
+          "i18n": "Services",
+          "slug": "services"
+        }
+      ]
+    },
+    {
+      "url": "/patients",
+      "name": "patients",
+      "i18n": "patients",
+      "class": "waves-effect waves-cyan",
+      "icon": "people",
+      "slug": "patients"
+    },
+    {
+      "url": "javascript:void(0)",
+      "name": "pharmacy",
+      "i18n": "pharmacy",
+      "class": "collapsible-header waves-effect waves-cyan",
+      "icon": "local_pharmacy",
+      "slug": "pharmacy",
+      "submenu": [
+        {
+          "url": "/inventories",
+          "name": "inventory",
+          "i18n": "inventory",
+          "slug": "pharmacy-inventory"
+        },
+        {
+          "url": "/sales",
+          "name": "sales",
+          "i18n": "sales",
+          "slug": "sales"
+        },
+        {
+          "url": "/units",
+          "name": "units",
+          "i18n": "units",
+          "slug": "units-page"
+        }
+      ]
+    },
+    {
+      "url": "/users",
+      "name": "users",
+      "i18n": "users",
+      "class": "waves-effect waves-cyan",
+      "icon": "work",
+      "slug": "users"
+    },
+    {
+      "url": "javascript:void(0)",
+      "name": "settings",
+      "i18n": "Settings",
+      "class": "collapsible-header waves-effect waves-cyan",
+      "icon": "settings",
+      "slug": "Settings",
+      "submenu": [
+        {
+          "url": "/general_settings",
+          "name": "general",
+          "i18n": "General",
+          "slug": "General"
+        },
+        {
+          "url": "/integrations",
+          "name": "integration",
+          "i18n": "Integration",
+          "slug": "Integration"
+        },
+        {
+          "url": "/roles",
+          "name": "RolesPermissions",
+          "i18n": "RolesPermissions",
+          "slug": "RolesPermissions"
+        },
+        {
+          "url": "/payments",
+          "name": "Payments",
+          "i18n": "Payments",
+          "class": "waves-effect waves-cyan",
+          "icon": "credit_card",
+          "slug": "payments"
+        }
+      ]
+    },
+    {
+      "url": "/logs",
+      "name": "logs",
+      "i18n": "logs",
+      "class": "waves-effect waves-cyan",
+      "icon": "history",
+      "slug": "logs"
+    }
+  ]
+}
