@@ -10,7 +10,21 @@ php -r "unlink('composer-setup.php');"
 
 echo "generating and importing sql files to laravel MySQL database ..."
 mysql -u %db.user% --password=%db_name% -e "CREATE DATABASE %db.name%"
-mysql -u %db.user% --password=%db.pass% < db/act_user3.sql
+mysql -u %db.user% --password=%db_name% < db/act_user3.sql
+mysql -u %db.user% --password=%db_name% < db/act_div3.sql
+mysql -u %db.user% --password=%db_name% < db/act_log.sql
+mysql -u %db.user% --password=%db_name% < db/act_mar3-2.sql
+mysql -u %db.user% --password=%db_name% < db/act_mar3.sql
+mysql -u %db.user% --password=%db_name% < db/act_metadb.sql
+mysql -u %db.user% --password=%db_name% < db/act_metalg.sql
+mysql -u %db.user% --password=%db_name% < db/act_mgrplg.sql
+mysql -u %db.user% --password=%db_name% < db/act_nai3.sql
+mysql -u %db.user% --password=%db_name% < db/act_params.sql
+mysql -u %db.user% --password=%db_name% < db/act_prenom.sql
+mysql -u %db.user% --password=%db_name% < db/act_sums.sql
+mysql -u %db.user% --password=%db_name% < db/act_traceip.sql
+mysql -u %db.user% --password=%db_name% < db/act_user3.sql
+
 
 echo "Starting build process ..."
 cd laravel
