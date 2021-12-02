@@ -1,7 +1,8 @@
 set db_user="root"
-set db_name="test"
+set db_name="laravel"
 set db_pass="" 
 
+echo "Importing sql files to laravel MySQL database ..."
 mysql -u %db_user% --password=%db_pass% -e "CREATE DATABASE %db_name%"
 mysql -u %db_user% --password=%db_pass% %db_name% < db/act_user3.sql
 mysql -u %db_user% --password=%db_pass% %db_name% < db/act_div3.sql
