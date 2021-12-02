@@ -1,6 +1,6 @@
-set db_user = "root"
-set db_name = "laravel"
-set db_pass = "" 
+set db_user="root"
+set db_name="laravel"
+set db_pass="" 
 
 echo Installing composer ...
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -9,21 +9,22 @@ php composer-setup.php
 php -r "unlink('composer-setup.php');"
 
 echo "generating and importing sql files to laravel MySQL database ..."
-mysql -u %db.user% --password=%db_name% -e "CREATE DATABASE %db.name%"
-mysql -u %db.user% --password=%db_name% < db/act_user3.sql
-mysql -u %db.user% --password=%db_name% < db/act_div3.sql
-mysql -u %db.user% --password=%db_name% < db/act_log.sql
-mysql -u %db.user% --password=%db_name% < db/act_mar3-2.sql
-mysql -u %db.user% --password=%db_name% < db/act_mar3.sql
-mysql -u %db.user% --password=%db_name% < db/act_metadb.sql
-mysql -u %db.user% --password=%db_name% < db/act_metalg.sql
-mysql -u %db.user% --password=%db_name% < db/act_mgrplg.sql
-mysql -u %db.user% --password=%db_name% < db/act_nai3.sql
-mysql -u %db.user% --password=%db_name% < db/act_params.sql
-mysql -u %db.user% --password=%db_name% < db/act_prenom.sql
-mysql -u %db.user% --password=%db_name% < db/act_sums.sql
-mysql -u %db.user% --password=%db_name% < db/act_traceip.sql
-mysql -u %db.user% --password=%db_name% < db/act_user3.sql
+mysql -u %db.user% --password=%db_pass% -e "CREATE DATABASE %db_name%"
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_user3.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_div3.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_log.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_mar3-2.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_mar3.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_metadb.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_metalg.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_mgrplg.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_nai3.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_params.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_prenom.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_sums.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_traceip.sql
+mysql -u %db.user% --password=%db_pass% %db_name% < db/act_user3.sql
+mysql -u %db_user% --password=%db_pass% %db_name% < db/act_geoloc.sql
 
 
 echo "Starting build process ..."
