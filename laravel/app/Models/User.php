@@ -14,6 +14,8 @@ class User extends Authenticatable
 
     protected $table = 'act_user3';
 
+    // User ==> users
+
     /**
      * The attributes that are mass assignable.
      *
