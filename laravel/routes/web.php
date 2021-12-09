@@ -23,15 +23,21 @@ Route::get('/', function () {
 Route::get('/users',[AppController::class,'usersPage']);
 
 
+
 Route::prefix('api')->group(function (){
     Route::prefix('sdt')->group(function (){
         Route::post('/users', [ApiController::class, 'sdtUsers']);
+        Route::post('/actes', [ApiController::class, 'sdtActes']);
     });
 
     Route::prefix('delete')->group(function (){
         Route::delete('/users',[ApiController::class, 'deleteUsers']);
     });
 });
+
+
+Route::get('/form/user/{id}', [AppController::class, 'userForm']);
+
 
 
 Route::prefix('import')->group(function (){
