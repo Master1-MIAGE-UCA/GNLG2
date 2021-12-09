@@ -5,18 +5,6 @@ db_user = "root"
 db_name = "laravel"
 db_pass = ""
 
-echo "Installing Brew ..."
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-echo "Installing MySQL ..."
-brew install mysql
-
-echo "Installing PHP ..."
-brew install php
-
-echo "Installing NodeJS"
-brew install node
-
 echo "Installing Composer ..."
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
