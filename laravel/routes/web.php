@@ -21,11 +21,17 @@ Route::get('/', function () {
 });
 
 Route::get('/users',[AppController::class,'usersPage']);
+Route::get('/born-acts',[AppController::class,'bornActsPage']);
+Route::get('/mariage-acts',[AppController::class,'mariageActsPage']);
+Route::get('/death-acts',[AppController::class,'deathActsPage']);
+
+
 
 
 Route::prefix('api')->group(function (){
     Route::prefix('sdt')->group(function (){
         Route::post('/users', [ApiController::class, 'sdtUsers']);
+        Route::post('/born-acts', [ApiController::class, 'sdtBornActs']);
     });
 
     Route::prefix('delete')->group(function (){

@@ -251,6 +251,19 @@
                 </ul>
             </div>
         </li>
+        <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
+                    class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="Dashboard">Gestion des actes</span></a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li><a href="/born-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de naissances</span></a>
+                    </li>
+                    <li><a href="/mariage-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de mariage</span></a>
+                    </li>
+                    <li><a href="/death-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de deces</span></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
     </ul>
     <div class="navigation-background"></div>
     <a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only"

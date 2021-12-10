@@ -8,7 +8,10 @@ class AppController extends Controller
 {
     //
 
-    function usersPage(){
+    function usersPage() {
         return view('pages.users.users');
+    }
+    function bornActsPage() {
+        return view('pages.acts.bornActs');
     }
 }
