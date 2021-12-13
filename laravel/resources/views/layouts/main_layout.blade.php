@@ -237,13 +237,13 @@
                                                                                        alt="materialize logo"/><img
                     class="show-on-medium-and-down hide-on-med-and-up"
                     src="{{asset('app-assets/images/logo/materialize-logo-color.png')}}" alt="materialize logo"/><span
-                    class="logo-text hide-on-med-and-down">Materialize</span></a><a class="navbar-toggler" href="#"><i
+                    class="logo-text hide-on-med-and-down">Expoact</span></a><a class="navbar-toggler" href="#"><i
                     class="material-icons">radio_button_checked</i></a></h1>
     </div>
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="accordion">
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
-                    class="material-icons">settings</i><span class="menu-title" data-i18n="Dashboard">Gestion APP</span></a>
+        class="material-icons">settings</i><span class="menu-title" data-i18n="Dashboard">Gestion des utilisateurs</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li><a href="/users"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Utilisateurs</span></a>
@@ -252,7 +252,7 @@
             </div>
         </li>
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
-                    class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="Dashboard">Gestion des actes</span></a>
+        class="material-icons">settings</i><span class="menu-title" data-i18n="Dashboard">Gestion des actes</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li><a href="/born-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de naissances</span></a>
