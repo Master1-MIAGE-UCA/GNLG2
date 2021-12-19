@@ -1,11 +1,12 @@
 $(document).ready(function () {
 
+    var id_table = "#users_datatable";
   // variable declaration
   var usersTable;
   var usersDataArray = [];
   // datatable initialization
-  if ($("#users-list-datatable").length > 0) {
-    usersTable = $("#users-list-datatable").DataTable({
+  if ($("#users_datatable").length > 0) {
+    usersTable = $("#users_datatable").DataTable({
       responsive: true,
       'columnDefs': [{
         "orderable": false,
@@ -15,34 +16,24 @@ $(document).ready(function () {
   };
   // on click selected users data from table(page named page-users-list)
   // to store into local storage to get rendered on second page named page-users-view
-  $(document).on("click", "#users-list-datatable tr", function () {
+  $(document).on("click","#users_datatable tr", function () {
     $(this).find("td").each(function () {
       usersDataArray.push($(this).text().trim())
     })
 
     localStorage.setItem("usersId", usersDataArray[1]);
-    localStorage.setItem("usersUsername", usersDataArray[2]);
-    localStorage.setItem("usersName", usersDataArray[3]);
-    localStorage.setItem("usersVerified", usersDataArray[5]);
-    localStorage.setItem("usersRole", usersDataArray[6]);
-    localStorage.setItem("usersStatus", usersDataArray[7]);
+    //localStorage.setItem("usersFullName", usersDataArray[2]);
+    localStorage.setItem("usersStatus", usersDataArray[3]);
+    localStorage.setItem("usersLevel", usersDataArray[4]);
+    localStorage.setItem("usersMail", usersDataArray[5]);
   })
   // render stored local storage data on page named page-users-view
   if (localStorage.usersId !== undefined) {
     $(".users-view-id").html(localStorage.getItem("usersId"));
-    $(".users-view-username").html(localStorage.getItem("usersUsername"));
-    $(".users-view-name").html(localStorage.getItem("usersName"));
-    $(".users-view-verified").html(localStorage.getItem("usersVerified"));
-    $(".users-view-role").html(localStorage.getItem("usersRole"));
-    $(".users-view-status").html(localStorage.getItem("usersStatus"));
-    // update badge color on status change
-    if ($(".users-view-status").text() === "Banned") {
-      $(".users-view-status").toggleClass("badge-light-success badge-light-danger")
-    }
-    // update badge color on status change
-    if ($(".users-view-status").text() === "Close") {
-      $(".users-view-status").toggleClass("badge-light-success badge-light-warning")
-    }
+    //$(".users-view-username").html(localStorage.getItem("usersFullName"));
+    $(".users-view-name").html(localStorage.getItem("usersStatus"));
+    $(".users-view-verified").html(localStorage.getItem("usersLevel"));
+    $(".users-view-role").html(localStorage.getItem("usersMail"));
   }
   // page users list verified filter
   $("#users-list-verified").on("change", function () {
@@ -55,33 +46,8 @@ $(document).ready(function () {
     // console.log(usersRoleSelect);
     usersTable.search(usersRoleSelect).draw();
   });
-  // page users list status filter
-  $("#users-list-status").on("change", function () {
-    var usersStatusSelect = $("#users-list-status").val();
-    // console.log(usersStatusSelect);
-    usersTable.search(usersStatusSelect).draw();
-  });
-  // users language select
-  if ($("#users-language-select2").length > 0) {
-    $("#users-language-select2").select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    });
-  }
-  // users music select
-  if ($("#users-music-select2").length > 0) {
-    $("#users-music-select2").select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    });
-  }
-  // users movies select
-  if ($("#users-movies-select2").length > 0) {
-    $("#users-movies-select2").select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    });
-  }
+
+
 
   // Input, Select, Textarea validations except submit button validation initialization
   if ($(".users-edit").length > 0) {

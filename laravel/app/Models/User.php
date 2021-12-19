@@ -13,6 +13,10 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'act_user3';
+    protected $primaryKey = 'ID';
+
+    //On l'utilise pour ne pas utiliser updated_at and created_at
+    public $timestamps = false;
 
     // User ==> users
 
@@ -22,9 +26,12 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'ID',
+        'login',
+        'nom',
+        'prenom',
         'email',
-        'password',
+        'hashpass',
     ];
 
     /**

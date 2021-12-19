@@ -44,7 +44,7 @@
                 <div class="card-content">
                     <!-- datatable start -->
                     <div class="responsive-table">
-                        <table id="users_datatable" class="table striped">
+                        <table id="users_datatable" class="display nowrap">
                             <thead>
                             <tr>
                                 <th>
@@ -55,12 +55,25 @@
                                 </th>
                                 <th>Nom</th>
                                 <th>Statut</th>
+                                <th>Niveau d'accès</th>
                                 <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>Nom</th>
+                                <th>Statut</th>
+                                <th>Niveau d'accès</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <!-- datatable ends -->
@@ -72,6 +85,9 @@
     <!-- users list ends -->
 
     <x-modal-form id="user" formName="formUser" formContent="formUserContent"/>
+    <!--If formName="show" => donc c'est pas un formulaire   -->
+    <x-modal-form id="user_show" formName="show" formContent="showUserContent"/>
+
 
 
 @endsection
@@ -79,16 +95,25 @@
 
 {{-- vendor scripts --}}
 @section('vendor-script')
+    <script src="{{asset('app-assets/js/vendors.min.js')}}"></script>
+
     <script src="{{asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js')}}"></script>
-    <script
-        src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>
+    {{--    <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>--}}
+
+    <script src="{{asset('app-assets/js/plugins.js')}}"></script>
+    <script src="{{asset('app-assets/js/search.js')}}"></script>
+    <script src="{{asset('app-assets/js/custom/custom-script.js')}}"></script>
+
     <script src="{{asset('app-assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/sweetalert/sweetalert.min.js')}}"></script>
+
+
 @endsection
 
 {{-- page script --}}
 @section('page-script')
     <script>
+
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -99,6 +124,7 @@
             $(".modal").modal();
         });
 
+
         // variable declaration
         var users_datatable;
         // datatable initialization
@@ -108,6 +134,9 @@
             processing: true,
             paging: true,
             ordering: false,
+            // Horizontal And Vertical Scroll Table
+            /* "scrollY": 400,
+             "scrollX": 400,*/
             ajax: {
                 url: dtUrlUser,
                 type: 'POST',
@@ -156,6 +185,56 @@
                 },
             });
         };
+
+        function _showUser(id) {
+            var preloader = `<x-preloader />`;
+            $("#modal_user_show").modal("open");
+            $("#showUserContent").html(preloader);
+            $.ajax({
+                url: "/show/user/" + id,
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#showUserContent").html(html);
+                },
+            });
+        };
+
+        //Validate form
+        $("#formUser").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                $("#span_btn_submit_formUser").html('<i class="fa fa-spinner fa-spin"></i>');
+                //var formData = $(form).serializeArray(); // convert form to array
+                var formData = new FormData($(form)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/form/user",
+                    data: formData,
+                    dataType: "JSON",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        if (result.success) {
+                            swal("Succes", result.msg, "success");
+                            $("#modal_user").modal("close");
+                        } else {
+                            swal("Erreur", result.msg, "error");
+                        }
+                    },
+                    error: function (error) {
+                        swal("Erreur", "Veuillez vérifier les champs saisie", "error");
+                    },
+                    complete: function (resultat, statut) {
+                        $("#span_btn_submit_formUser").html("");
+                        _reload_users_datatable();
+                    },
+                });
+                return false;
+            },
+        });
 
         function _deleteUsers(id) {
 
@@ -223,6 +302,7 @@
                 });
             }
         }
+
 
     </script>
 @endsection

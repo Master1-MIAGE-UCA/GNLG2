@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>@yield('title') | {{env('APP_NAME')}}</title>
     <link rel="apple-touch-icon" href="{{asset('app-assets/images/favicon/apple-touch-icon-152x152.png')}}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/favicon/favicon-32x32.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/favicon/expoactes.jpg')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- BEGIN: VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/vendors.min.css')}}">
@@ -233,11 +233,11 @@
 <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
     <div class="brand-sidebar">
         <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img class="hide-on-med-and-down "
-                                                                                       src="{{asset('app-assets/images/logo/materialize-logo.png')}}"
+                                                                                       src="{{asset('app-assets/images/favicon/expoactes.jpg')}}"
                                                                                        alt="materialize logo"/><img
                     class="show-on-medium-and-down hide-on-med-and-up"
-                    src="{{asset('app-assets/images/logo/materialize-logo-color.png')}}" alt="materialize logo"/><span
-                    class="logo-text hide-on-med-and-down">Materialize</span></a><a class="navbar-toggler" href="#"><i
+                    src="{{asset('app-assets/images/logo/materialize-logo-color.png')}}" alt="expoactes logo"/><span
+                    class="logo-text hide-on-med-and-down">{{config('app.name')}}</span></a><a class="navbar-toggler" href="#"><i
                     class="material-icons">radio_button_checked</i></a></h1>
     </div>
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"

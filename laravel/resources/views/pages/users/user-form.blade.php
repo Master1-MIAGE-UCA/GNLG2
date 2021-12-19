@@ -1,26 +1,25 @@
 @php
     $title="Ajout utilisateur";
-    if($user && $user->id>0){
+    if($user && $user->ID>0){
     $title="Modification information d'utilisateur";
     }
 @endphp
 <h4>{{$title}}</h4>
 @csrf
-<input type="hidden" name="id" value="{{ ($user)?$user->id:0 }}"/>
+<input type="hidden" name="ID" value="{{ ($user)?$user->ID:0 }}"/>
 <div class="row">
     <div class="col s12">
-
         <div class="row">
             <div class="input-field col s6">
                 <i class="material-icons prefix">account_circle</i>
-                <input id="lastname" name="lastname" type="text" class="validate"
-                       value="{{ ($user)?$user->lastname:'' }}">
-                <label for="lastname" class="active">Nom</label>
+                <input id="nom" name="nom" type="text" class="validate"
+                       value="{{ ($user)?$user->nom:'' }}" required>
+                <label for="nom" class="active">Nom*</label>
             </div>
             <div class="input-field col s6">
-                <input id="firstname" name="firstname" type="text" class="validate"
-                       value="{{ ($user)?$user->firstname:'' }}">
-                <label for="firstname" class="active">Prénom</label>
+                <input id="prenom" name="prenom" type="text" class="validate"
+                       value="{{ ($user)?$user->prenom:'' }}" required>
+                <label for="prenom" class="active">Prénom*</label>
             </div>
         </div>
         <div class="row">
@@ -28,33 +27,33 @@
                 <i class="material-icons prefix">email</i>
                 <input id="email" name="email" type="email" class="validate" value="{{ ($user)?$user->email:'' }}"
                        required>
-                <label for="email" class="active">Email</label>
+                <label for="email" class="active">Email*</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">note_add</i>
-                <textarea id="zone_libre" name="zone_libre" class="materialize-textarea"></textarea>
-                <label for="zone_libre">Zone libre</label>
+                <textarea id="libre" name="libre" class="materialize-textarea">{{($user)?$user->libre:''}}</textarea>
+                <label for="libre" class="active">Zone libre</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s4">
                 <i class="material-icons prefix">person</i>
-                <input id="username" name="username" type="text" class="validate"
-                       value="{{ ($user)?$user->username:'' }}">
-                <label for="username" class="active">Login</label>
+                <input id="login" name="login" type="text" class="validate"
+                       value="{{ ($user)?$user->login:'' }}" required>
+                <label for="login" class="active">Login*</label>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">vpn_key</i>
-                <input id="password" name="password" type="password" class="validate" value="">
-                <label for="password" class="active">Mot de passe</label>
+                <input id="hashpass" name="hashpass" type="password" class="validate">
+                <label for="hashpass" class="active">Mot de passe*</label>
                 @if($user)<span
                     class="helper-text">Si vous ne voulez pas changer le mdp veuillez laisser cette zone vide</span>@endif
             </div>
             <div class="input-field col s4">
-                <input id="conf_password" name="conf_password" type="password" class="validate" value="">
-                <label for="conf_password" class="active">Confimation du mot de passe</label>
+                <input id="conf_hashpass" name="conf_hashpass" type="password" class="validate" value="">
+                <label for="conf_hashpass" class="active">Confimation du mot de passe*</label>
             </div>
         </div>
         <div class="row">
@@ -71,8 +70,8 @@
                         return $statut;
                     }
                 @endphp
-                <select class="select2 browser-default" name="statut">
-                    <option value="0">Choisissez le statut de l'utilisateur...</option>
+                <select class="select2 browser-default" name="statut" required>
+                    <option>Choisissez le statut de l'utilisateur...</option>
                     @foreach($statuts as $statut)
                         <option
                             value="{{$statut}}" {{ (  $user && ($statut == $user->statut) ) ? 'selected' : '' }}>{{completeStatut($statut)}}
@@ -82,13 +81,13 @@
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">today</i>
-                <input id="date_entree" name="date_entree" type="date" class="validate" disabled>
-                <label for="date_entree" class="active">Date d'entrée</label>
+                <input id="dtcreation" name="dtcreation" type="date" class="validate" disabled>
+                <label for="dtcreation" class="active">Date d'entrée</label>
             </div>
             <div class="input-field col s4">
                 <i class="material-icons prefix">date_range</i>
-                <input id="date_expiration" name="date_expiration" type="date" class="validate" value="">
-                <label for="date_expiration" class="active">Date d'éxpiration</label>
+                <input id="dtexpiration" name="dtexpiration" type="date" class="validate" value="">
+                <label for="dtexpiration" class="active">Date d'éxpiration</label>
             </div>
         </div>
 
@@ -113,7 +112,7 @@
                     }
                 @endphp
                 <select class="select2 browser-default" name="level">
-                    <option value="0">Choisissez le droit d'accès...</option>
+                    <option>Choisissez le droit d'accès...</option>
                     @foreach($levels as $level)
                         <option
                             value="{{$level}}" {{ (  $user && ($level == $user->level) ) ? 'selected' : '' }}>{{completeLevel($level)}}
@@ -123,32 +122,24 @@
             </div>
             <div class="input-field col s8">
                 <i class="material-icons prefix">comment</i>
-                <textarea id="comment" name="comment" class="materialize-textarea"></textarea>
-                <label for="comment">Commentaire</label>
+                <textarea id="REM" name="REM" class="materialize-textarea"></textarea>
+                <label for="REM" class="active">Commentaire</label>
             </div>
         </div>
         <div class="row">
             <div class="col s12">
                 <label>
-                    <input type="checkbox" />
+                    <input type="checkbox" id="auto_mail_send" name="auto_mail_send"/>
                     <span>Envoi automatique du mail ci-dessous </span>
                 </label>
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">message</i>
-                <textarea id="message" name="message" class="materialize-textarea active">
-Bonjour #PRENOM#,&#13;&#10;&#13;&#10;Un compte vient d'être créé pour vous permettre de vous connecter au site #NOMSITE# :&#13;&#10;&#13;&#10;#URLSITE#&#13;&#10;&#13;&#10;Votre login : #LOGIN#&#13;&#10;&#13;&#10;Votre mot de passe : #PASSW#&#13;&#10;&#13;&#10;Cordialement,&#13;&#10;&#13;&#10;Votre webmestre.
-                </textarea>
-                <label for="comment" class="active">Message</label>
-            </div>
-        </div>
+
     </div>
 </div>
 
 <script>
+
 
 
 </script>
