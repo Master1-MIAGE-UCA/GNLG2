@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AppController;
+use App\Mail\WelcomeMail;
 use FamilyTree365\LaravelGedcom\Utils\GedcomParser;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,23 +22,25 @@ Route::get('/', function () {
     return view('pages.test');
 });
 
+Route::get('/email', function () {
+    //$name = "Oussama";
+    //Mail::to('recever@expoactes.fr')->send(new WelcomeMail($name));
+    return new WelcomeMail("Oussama", "SAMIA", "OussaJr_", "MDP");
+});
+
 Route::get('/users',[AppController::class,'usersPage']);
 Route::get('/born-acts',[AppController::class,'bornActsPage']);
 Route::get('/mariage-acts',[AppController::class,'mariageActsPage']);
 Route::get('/death-acts',[AppController::class,'deathActsPage']);
 Route::get('/divers-acts',[AppController::class,'DiversActsPage']);
 
-
-
-
-Route::prefix('api')->group(function (){
-    Route::prefix('sdt')->group(function (){
+Route::prefix('api')->group(function () {
+    Route::prefix('sdt')->group(function () {
         Route::post('/users', [ApiController::class, 'sdtUsers']);
         Route::post('/born-acts', [ApiController::class, 'sdtBornActs']);
         Route::post('/mariage-acts', [ApiController::class, 'sdtMariageActs']);
         Route::post('/death-acts', [ApiController::class, 'sdtDeathActs']);
         Route::post('/divers-acts', [ApiController::class, 'sdtDiversActs']);
-       
     });
 
     Route::prefix('delete')->group(function (){
@@ -45,17 +49,19 @@ Route::prefix('api')->group(function (){
         Route::delete('/mariage-acts',[ApiController::class, 'deleteMariageActs']);
         Route::delete('/death-acts',[ApiController::class, 'deleteDeathActs']);
         Route::delete('/divers-acts',[ApiController::class, 'deleteDiversActs']);
-      
     });
 });
 
+Route::get('/show/user/{id}', [AppController::class, 'userShow']);
+Route::get('/form/user/{id}', [AppController::class, 'userForm']);
+Route::post('/form/user', [AppController::class, 'storeFormUser']);
 
-Route::prefix('import')->group(function (){
-    Route::get('gedcom',function (){
+Route::prefix('import')->group(function () {
+    Route::get('gedcom', function () {
 
         $filename = asset('gedcom/JacquelineLapiere.ged');
         $parser = new GedcomParser();
-        $parser->parse($filename, true,"1");
+        $parser->parse($filename, true, "1");
         echo "Success";
     });
 });

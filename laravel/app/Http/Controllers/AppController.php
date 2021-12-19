@@ -11,23 +11,42 @@ class AppController extends Controller
 {
     //
 
-    function usersPage() {
+    function usersPage()
+    {
         return view('pages.users.users');
     }
-    function bornActsPage() {
+
+    function bornActsPage()
+    {
         return view('pages.acts.bornActs');
     }
+
     function mariageActsPage()
     {
         return view('pages.acts.mariageActs');
     }
+
     function deathActsPage()
     {
         return view('pages.acts.deathActs');
     }
+
     function DiversActsPage()
     {
         return view('pages.acts.diversActs');
+    }
+
+    function userForm($id)
+    {
+        $user = null;
+        $statuts = ['W', 'A', 'N', 'B'];
+        $levels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        if ($id > 0) {
+            $user = User::find($id);
+        }
+        // var_dump($user);die();
+        return view('pages.users.user-form', compact('user', 'levels', 'statuts'));
+
     }
 
     function userShow($id)
@@ -38,11 +57,12 @@ class AppController extends Controller
             $user = User::find($id);
         }
         // var_dump($user);die();
-        return view('pages.users.user-show',compact('user'));
+        return view('pages.users.user-show', compact('user'));
     }
 
 
-    public function storeFormUser(Request $request)
+    public
+    function storeFormUser(Request $request)
     {
         //var_dump($request->all());die();
         $success = false;
@@ -86,7 +106,7 @@ class AppController extends Controller
                 'solde' => $request->solde,
                 'maj_solde' => $request->maj_solde,
                 'pt_conso' => $request->pt_conso,
-                'auto_mail_send'=> $request->auto_mail_send,
+                'auto_mail_send' => $request->auto_mail_send,
             );
 
             //var_dump($data);die();
@@ -97,9 +117,9 @@ class AppController extends Controller
                 $msg = 'L\'utilisateur est bien été enregistrer';
 
                 //Si c'est la création de l'utilisateur et il est bien enregistrer alors envoie lui un email
-                if($data['ID']==0 && $data['auto_mail_send']=='on'){
+                if ($data['ID'] == 0 && $data['auto_mail_send'] == 'on') {
 
-                    $MailHelperTools->sendCreationUserMail($data['prenom'],$data['nom'],$data['login'],$data['hashpass'],$data['email']);
+                    $MailHelperTools->sendCreationUserMail($data['prenom'], $data['nom'], $data['login'], $data['hashpass'], $data['email']);
                     $msg .= 'et l\'email est bien été envoyé';
                 }
 

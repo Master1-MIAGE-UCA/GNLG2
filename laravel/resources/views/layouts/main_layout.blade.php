@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>@yield('title') | {{env('APP_NAME')}}</title>
     <link rel="apple-touch-icon" href="{{asset('app-assets/images/favicon/apple-touch-icon-152x152.png')}}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/favicon/favicon-32x32.png')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/favicon/expoactes.jpg')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- BEGIN: VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/vendors.min.css')}}">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/custom/custom.css')}}">
     <!-- END: Custom CSS-->
 
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
 
     @yield('vendor-style')
@@ -233,17 +233,19 @@
 <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
     <div class="brand-sidebar">
         <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img class="hide-on-med-and-down "
-                                                                                       src="{{asset('app-assets/images/logo/materialize-logo.png')}}"
+                                                                                       src="{{asset('app-assets/images/favicon/expoactes.jpg')}}"
                                                                                        alt="materialize logo"/><img
                     class="show-on-medium-and-down hide-on-med-and-up"
-                    src="{{asset('app-assets/images/logo/materialize-logo-color.png')}}" alt="materialize logo"/><span
-                    class="logo-text hide-on-med-and-down">Expoact</span></a><a class="navbar-toggler" href="#"><i
+
+                    src="{{asset('app-assets/images/logo/materialize-logo-color.png')}}" alt="expoactes logo"/><span
+                    class="logo-text hide-on-med-and-down">{{config('app.name')}}</span></a><a class="navbar-toggler"
+                                                                                               href="#"><i
                     class="material-icons">radio_button_checked</i></a></h1>
     </div>
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="accordion">
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
-        class="material-icons">settings</i><span class="menu-title" data-i18n="Dashboard">Gestion des utilisateurs</span></a>
+                    class="material-icons">settings</i><span class="menu-title" data-i18n="Dashboard">Gestion des utilisateurs</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li><a href="/users"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Utilisateurs</span></a>
@@ -252,16 +254,21 @@
             </div>
         </li>
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
-        class="material-icons">settings</i><span class="menu-title" data-i18n="Dashboard">Gestion des actes</span></a>
+                    class="material-icons">settings</i><span class="menu-title"
+                                                             data-i18n="Dashboard">Gestion des actes</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                    <li><a href="/born-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de naissances</span></a>
+                    <li><a href="/born-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes de naissances</span></a>
                     </li>
-                    <li><a href="/mariage-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de mariage</span></a>
+                    <li><a href="/mariage-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes de mariage</span></a>
                     </li>
-                    <li><a href="/death-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de deces</span></a>
+                    <li><a href="/death-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes de deces</span></a>
                     </li>
-                    <li><a href="/divers-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes divers</span></a>
+                    <li><a href="/divers-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes divers</span></a>
                     </li>
                 </ul>
             </div>
