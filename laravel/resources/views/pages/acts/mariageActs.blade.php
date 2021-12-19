@@ -1,6 +1,6 @@
 @extends('layouts.main_layout')
 
-@section('title','Actes de naissance')
+@section('title','Actes de mariage')
 
 @section('vendor-style')
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/data-tables/css/jquery.dataTables.min.css')}}">
@@ -24,13 +24,13 @@
 
         <!-- begin::buttons -->
         <div class="card-panel">
-            <button class="btn waves-effect waves-light btn-small" type="button" onclick="_formBornAct(0)"><i
-                    class="material-icons left">add</i> Ajouter des actes de naissance (WIP) </button>
-            <button class="btn waves-effect waves-light blue btn-small" type="button" onclick="_reload_bornActs_datatable()"><i
+            <button class="btn waves-effect waves-light btn-small" type="button" onclick="_formMariageAct(0)"><i
+                    class="material-icons left">add</i> Ajouter des actes de mariage (WIP) </button>
+            <button class="btn waves-effect waves-light blue btn-small" type="button" onclick="_reload_MariageActs_datatable()"><i
                     class="material-icons left">refresh</i>
                 Actualiser</button>
-            <button class="btn waves-effect waves-light red btn-small" type="button" onclick="_deleteBornActs(0)"><i
-                    class="material-icons left">delete_forever</i> Supprimer actes de naissance </button>
+            <button class="btn waves-effect waves-light red btn-small" type="button" onclick="_deleteMariageActs(0)"><i
+                    class="material-icons left">delete_forever</i> Supprimer actes de mariage </button>
         </div>
         <!-- end::buttons -->
 
@@ -39,11 +39,12 @@
                 <div class="card-content">
                     <!-- datatable start -->
                     <div class="responsive-table">
-                        <table id="bornActs_datatable" class="table striped">
+                        <table id="mariageActs_datatable" class="table striped">
                             <thead>
                             <tr>
                                 <th>
                                     <label class="checkbox checkbox-single">
+                                      
                                         <input type="checkbox" value="" class="group-checkable" />
                                         <span></span>
                                     </label>
@@ -65,7 +66,7 @@
         </div>
     </section>
 
-    <!-- bornActs list ends -->
+    <!-- MariageActs list ends -->
 
 @endsection
 
@@ -73,7 +74,7 @@
 {{-- vendor scripts --}}
 @section('vendor-script')
     <script src="{{asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>
+   <!--  <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script> -->
     <script src="{{asset('app-assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/sweetalert/sweetalert.min.js')}}"></script>
 @endsection
@@ -88,16 +89,16 @@
         });
 
         // variable declaration
-        var bornActs_datatable;
+        var mariageActs_datatable;
         // datatable initialization
-        dtUrlBornAct = '/api/sdt/born-acts';
-       bornActs_datatable = $("#bornActs_datatable").DataTable({
+        dtUrlMariageAct = '/api/sdt/mariage-acts';
+        mariageActs_datatable = $("#mariageActs_datatable").DataTable({
             responsive: true,
             processing: true,
             paging: true,
             ordering: false,
            ajax: {
-                url: dtUrlBornAct,
+                url: dtUrlMariageAct,
                 type: 'POST',
                // dataSrc: "",
                
@@ -115,7 +116,7 @@
             pageLength: 10,
            
         });
-        bornActs_datatable.on('change', '.group-checkable', function() {
+        mariageActs_datatable.on('change', '.group-checkable', function() {
             var set = $(this).closest('table').find('td:first-child .checkable');
             var checked = $(this).is(':checked');
 
@@ -130,15 +131,15 @@
             });
         });
 
-        bornActs_datatable.on('change', 'tbody tr .checkbox', function() {
+        mariageActs_datatable.on('change', 'tbody tr .checkbox', function() {
             $(this).parents('tr').toggleClass('active');
         });
 
-        function _reload_bornActs_datatable() {
-            $('#bornActs_datatable').DataTable().ajax.reload();
+        function _reload_MariageActs_datatable() {
+            $('#mariageActs_datatable').DataTable().ajax.reload();
         }
 
-        function _deleteBornActs(id) {
+        function _deleteMariageActs(id) {
 
 
 var arrayIds = new Array();
@@ -148,7 +149,7 @@ var j = 0;
 if (id > 0) {
     arrayIds[0] = id;
 } else {
-    $('#bornActs_datatable input[class="checkable"]').each(function() {
+    $('#mariageActs_datatable input[class="checkable"]').each(function() {
         var checked = jQuery(this).is(":checked");
         if (checked) {
             arrayIds[j] = jQuery(this).val();
@@ -159,11 +160,11 @@ if (id > 0) {
 
 
 if (arrayIds.length < 1) {
-    swal("Erreur", "Veuillez sélectionner des actes de naissance", "error");
+    swal("Erreur", "Veuillez sélectionner des actes de mariage", "error");
 } else {
-    var successMsg = "L'acte de naissance a été supprimer";
-    var errorMsg = "L'acte de naissance n'a pas été supprimer";
-    var swalConfirmTitle = "Êtes vous sur de vouloir supprimer cet acte de naissance?";
+    var successMsg = "L'acte de mariage a été supprimé";
+    var errorMsg = "L'acte de mariage n'a pas été supprimé";
+    var swalConfirmTitle = "Êtes vous sur de vouloir supprimer cet acte de mariage?";
     var swalConfirmText = "Vous ne pouvez pas revenir en arrière";
     swal({
         title: swalConfirmTitle,
@@ -178,7 +179,7 @@ if (arrayIds.length < 1) {
         if (willDelete) {
 
             $.ajax({
-                url: "/api/delete/born_acts",
+                url: "/api/delete/mariage-acts",
                 type: "DELETE",
                 cache: false,
                 data: {
@@ -196,7 +197,7 @@ if (arrayIds.length < 1) {
                     swal("Error", errorMsg, "error");
                 },
                 complete: function(result, status) {
-                    _reload_bornActs_datatable();
+                    _reload_MariageActs_datatable();
                 },
             });
 

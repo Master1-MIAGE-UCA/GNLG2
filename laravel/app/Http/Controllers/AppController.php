@@ -14,4 +14,16 @@ class AppController extends Controller
     function bornActsPage() {
         return view('pages.acts.bornActs');
     }
+    function mariageActsPage()
+    {
+        return view('pages.acts.mariageActs');
+    }
+    function deathActsPage()
+    {
+        return view('pages.acts.deathActs');
+    }
+    function DiversActsPage()
+    {
+        return view('pages.acts.diversActs');
+    }
 }

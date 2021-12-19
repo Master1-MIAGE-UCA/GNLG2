@@ -4,17 +4,158 @@ namespace App\Http\Controllers;
 
 use App\Models\BornAct;
 use App\Models\User;
+use App\Models\MariageAct;
+use App\Models\DeathAct;
+use App\Models\DiverAct;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    public function sdtDiversActs(Request $request)
+    {
+        $data = $meta = [];
+       // var_dump("test l13");die();
+        $DiversActs = DiverAct::orderByDesc('ID')->get();
+      //  var_dump($MariageActs);die();
+        foreach ($DiversActs as $b) {
+            $row = array();
+            //<th>Id</th>
+            $row[] = '<label class="checkbox checkbox-single"><input type="checkbox" name="ids_diversActs[]" value="' . $b->ID . '" class="checkable"/><span></span></label>';
+
+            // FAUX NOMS DE CHAMP DE DB A REFAIRE AVEC LES BONS
+
+            //<th>Localité</th>
+            $localite = $b->COMMUNE;
+            $row[] = $localite;
+            //<th>Période</th>
+            $periode = $b->DATETXT;
+            $row[] = $periode;
+            //<th>Actes</th>
+            $actes = $b->IDNIM;
+            $row[] = $actes;
+            //<th>Filiatifs</th>
+            $filiatifs = $b->LIBRE;
+            $row[] = $filiatifs;
+         
+            //<th>Actions</th>
+            $btn_edit = '<a href="javascript:void(0)" onclick="_formBornAct(' . $b->ID . ')" class="green-text"><i class="material-icons">edit</i></a>';
+            //$btn_view='<a href="javascript:void(0)"><i class="material-icons">remove_red_eye</i></a>';
+            $btn_delete = '<a href="javascript:void(0)" onclick="_deleteBornActs(' . $b->ID . ')" class="grey-text"><i class="material-icons">delete</i></a>';
+            $row[] = $btn_edit . $btn_delete;
+           // $row[]  = "";
+           //  $row[]  = "";
+           //  $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = ""; 
+           // var_dump($row);die();
+            $data[] = $row;
+        } 
+        $result = [
+            'data' => $data,
+        ];
+       
+        return response()->json($result);
+    }
+    public function sdtDeathActs(Request $request)
+    {
+        $data = $meta = [];
+       // var_dump("test l13");die();
+        $DeathActs = DeathAct::orderByDesc('ID')->get();
+      //  var_dump($MariageActs);die();
+        foreach ($DeathActs as $b) {
+            $row = array();
+            //<th>Id</th>
+            $row[] = '<label class="checkbox checkbox-single"><input type="checkbox" name="ids_deathActs[]" value="' . $b->ID . '" class="checkable"/><span></span></label>';
+
+            // FAUX NOMS DE CHAMP DE DB A REFAIRE AVEC LES BONS
+
+            //<th>Localité</th>
+            $localite = $b->COMMUNE;
+            $row[] = $localite;
+            //<th>Période</th>
+            $periode = $b->DATETXT;
+            $row[] = $periode;
+            //<th>Actes</th>
+            $actes = $b->IDNIM;
+            $row[] = $actes;
+            //<th>Filiatifs</th>
+            $filiatifs = $b->LIBRE;
+            $row[] = $filiatifs;
+         
+            //<th>Actions</th>
+            $btn_edit = '<a href="javascript:void(0)" onclick="_formBornAct(' . $b->ID . ')" class="green-text"><i class="material-icons">edit</i></a>';
+            //$btn_view='<a href="javascript:void(0)"><i class="material-icons">remove_red_eye</i></a>';
+            $btn_delete = '<a href="javascript:void(0)" onclick="_deleteBornActs(' . $b->ID . ')" class="grey-text"><i class="material-icons">delete</i></a>';
+            $row[] = $btn_edit . $btn_delete;
+           // $row[]  = "";
+           //  $row[]  = "";
+           //  $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = ""; 
+           // var_dump($row);die();
+            $data[] = $row;
+        } 
+        $result = [
+            'data' => $data,
+        ];
+       
+        return response()->json($result);
+    }
+    public function sdtMariageActs(Request $request)
+    {
+        $data = $meta = [];
+       // var_dump("test l13");die();
+        $MariageActs = MariageAct::orderByDesc('ID')->get();
+      //  var_dump($MariageActs);die();
+        foreach ($MariageActs as $b) {
+            $row = array();
+            //<th>Id</th>
+            $row[] = '<label class="checkbox checkbox-single"><input type="checkbox" name="ids_mariageActs[]" value="' . $b->ID . '" class="checkable"/><span></span></label>';
+
+            // FAUX NOMS DE CHAMP DE DB A REFAIRE AVEC LES BONS
+
+            //<th>Localité</th>
+            $localite = $b->COMMUNE;
+            $row[] = $localite;
+            //<th>Période</th>
+            $periode = $b->DATETXT;
+            $row[] = $periode;
+            //<th>Actes</th>
+            $actes = $b->IDNIM;
+            $row[] = $actes;
+            //<th>Filiatifs</th>
+            $filiatifs = $b->LIBRE;
+            $row[] = $filiatifs;
+         
+            //<th>Actions</th>
+            $btn_edit = '<a href="javascript:void(0)" onclick="_formMariageAct(' . $b->ID . ')" class="green-text"><i class="material-icons">edit</i></a>';
+            //$btn_view='<a href="javascript:void(0)"><i class="material-icons">remove_red_eye</i></a>';
+            $btn_delete = '<a href="javascript:void(0)" onclick="_deleteMariageActs(' . $b->ID . ')" class="grey-text"><i class="material-icons">delete</i></a>';
+            $row[] = $btn_edit . $btn_delete;
+           // $row[]  = "";
+           //  $row[]  = "";
+           //  $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = ""; 
+           // var_dump($row);die();
+            $data[] = $row;
+        } 
+        $result = [
+            'data' => $data,
+        ];
+       
+        return response()->json($result);
+    }
     public function sdtBornActs(Request $request)
     {
         $data = $meta = [];
-        var_dump("test l13");die();
+       // var_dump("test l13");die();
         $bornActs = BornAct::orderByDesc('ID')->get();
-        var_dump($bornActs);die();
-        /*foreach ($bornActs as $b) {
+       // var_dump($bornActs);die();
+        foreach ($bornActs as $b) {
             $row = array();
             //<th>Id</th>
             $row[] = '<label class="checkbox checkbox-single"><input type="checkbox" name="ids_bornActs[]" value="' . $b->ID . '" class="checkable"/><span></span></label>';
@@ -33,24 +174,26 @@ class ApiController extends Controller
             //<th>Filiatifs</th>
             $filiatifs = $b->LIBRE;
             $row[] = $filiatifs;
-
+         
             //<th>Actions</th>
             $btn_edit = '<a href="javascript:void(0)" onclick="_formBornAct(' . $b->ID . ')" class="green-text"><i class="material-icons">edit</i></a>';
             //$btn_view='<a href="javascript:void(0)"><i class="material-icons">remove_red_eye</i></a>';
             $btn_delete = '<a href="javascript:void(0)" onclick="_deleteBornActs(' . $b->ID . ')" class="grey-text"><i class="material-icons">delete</i></a>';
             $row[] = $btn_edit . $btn_delete;
-            $row[]  = "";
-            $row[]  = "";
-            $row[]  = "";
-            $row[]  = "";
-            $row[]  = "";
-            $row[]  = "";
+           // $row[]  = "";
+           //  $row[]  = "";
+           //  $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = "";
+            // $row[]  = ""; 
+            //var_dump($row);die();
             $data[] = $row;
-        }
+        } 
         $result = [
             'data' => $data,
         ];
-        return response()->json($result);*/
+       
+        return response()->json($result);
     }
     //
     public function sdtUsers(Request $request)
@@ -108,4 +251,70 @@ class ApiController extends Controller
         }
         return response()->json(['success' => $success]);
     }
+
+    public function deleteBornActs(Request $request)
+    {
+        $success = false;
+        if ($request->isMethod('delete')) {
+            if ($request->has('ids')) {
+                $ids = $request->ids;
+                if (count($ids) > 0) {
+                    $nbDeletedRows=BornAct::whereIn('id', $ids)->delete();
+                    if($nbDeletedRows>0){
+                        $success = true;
+                    }
+                }
+            }
+        }
+        return response()->json(['success' => $success]);
+    } 
+    public function deleteMariageActs(Request $request)
+    {
+        $success = false;
+        if ($request->isMethod('delete')) {
+            if ($request->has('ids')) {
+                $ids = $request->ids;
+                if (count($ids) > 0) {
+                    $nbDeletedRows=MariageAct::whereIn('id', $ids)->delete();
+                    if($nbDeletedRows>0){
+                        $success = true;
+                    }
+                }
+            }
+        }
+        return response()->json(['success' => $success]);
+    } 
+    public function deleteDeathActs(Request $request)
+    {
+        $success = false;
+        if ($request->isMethod('delete')) {
+            if ($request->has('ids')) {
+                $ids = $request->ids;
+                if (count($ids) > 0) {
+                    $nbDeletedRows=DeathAct::whereIn('id', $ids)->delete();
+                    if($nbDeletedRows>0){
+                        $success = true;
+                    }
+                }
+            }
+        }
+        return response()->json(['success' => $success]);
+    } 
+    public function   deleteDiversActs(Request $request)
+    {
+        $success = false;
+        if ($request->isMethod('delete')) {
+            if ($request->has('ids')) {
+                $ids = $request->ids;
+                if (count($ids) > 0) {
+                    $nbDeletedRows=DiverAct::whereIn('id', $ids)->delete();
+                    if($nbDeletedRows>0){
+                        $success = true;
+                    }
+                }
+            }
+        }
+        return response()->json(['success' => $success]);
+    }
+  
 }

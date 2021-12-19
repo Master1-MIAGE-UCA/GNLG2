@@ -261,6 +261,8 @@
                     </li>
                     <li><a href="/death-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes de deces</span></a>
                     </li>
+                    <li><a href="/divers-acts"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Actes divers</span></a>
+                    </li>
                 </ul>
             </div>
         </li>

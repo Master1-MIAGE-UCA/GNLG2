@@ -24,6 +24,7 @@ Route::get('/users',[AppController::class,'usersPage']);
 Route::get('/born-acts',[AppController::class,'bornActsPage']);
 Route::get('/mariage-acts',[AppController::class,'mariageActsPage']);
 Route::get('/death-acts',[AppController::class,'deathActsPage']);
+Route::get('/divers-acts',[AppController::class,'DiversActsPage']);
 
 
 
@@ -32,10 +33,19 @@ Route::prefix('api')->group(function (){
     Route::prefix('sdt')->group(function (){
         Route::post('/users', [ApiController::class, 'sdtUsers']);
         Route::post('/born-acts', [ApiController::class, 'sdtBornActs']);
+        Route::post('/mariage-acts', [ApiController::class, 'sdtMariageActs']);
+        Route::post('/death-acts', [ApiController::class, 'sdtDeathActs']);
+        Route::post('/divers-acts', [ApiController::class, 'sdtDiversActs']);
+       
     });
 
     Route::prefix('delete')->group(function (){
         Route::delete('/users',[ApiController::class, 'deleteUsers']);
+        Route::delete('/born_acts',[ApiController::class, 'deleteBornActs']);
+        Route::delete('/mariage-acts',[ApiController::class, 'deleteMariageActs']);
+        Route::delete('/death-acts',[ApiController::class, 'deleteDeathActs']);
+        Route::delete('/divers-acts',[ApiController::class, 'deleteDiversActs']);
+      
     });
 });
 

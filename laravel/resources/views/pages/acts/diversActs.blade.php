@@ -1,6 +1,6 @@
 @extends('layouts.main_layout')
 
-@section('title','Actes de naissance')
+@section('title','Actes divers')
 
 @section('vendor-style')
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/data-tables/css/jquery.dataTables.min.css')}}">
@@ -25,12 +25,12 @@
         <!-- begin::buttons -->
         <div class="card-panel">
             <button class="btn waves-effect waves-light btn-small" type="button" onclick="_formBornAct(0)"><i
-                    class="material-icons left">add</i> Ajouter des actes de naissance (WIP) </button>
-            <button class="btn waves-effect waves-light blue btn-small" type="button" onclick="_reload_bornActs_datatable()"><i
+                    class="material-icons left">add</i> Ajouter des actes (WIP) </button>
+            <button class="btn waves-effect waves-light blue btn-small" type="button" onclick="_reload_DiversActs_datatable()"><i
                     class="material-icons left">refresh</i>
                 Actualiser</button>
-            <button class="btn waves-effect waves-light red btn-small" type="button" onclick="_deleteBornActs(0)"><i
-                    class="material-icons left">delete_forever</i> Supprimer actes de naissance </button>
+            <button class="btn waves-effect waves-light red btn-small" type="button" onclick="_deleteDiversActs(0)"><i
+                    class="material-icons left">delete_forever</i> Supprimer des actes </button>
         </div>
         <!-- end::buttons -->
 
@@ -39,7 +39,7 @@
                 <div class="card-content">
                     <!-- datatable start -->
                     <div class="responsive-table">
-                        <table id="bornActs_datatable" class="table striped">
+                        <table id="diversActs_datatable" class="table striped">
                             <thead>
                             <tr>
                                 <th>
@@ -65,7 +65,7 @@
         </div>
     </section>
 
-    <!-- bornActs list ends -->
+    <!-- MariageActs list ends -->
 
 @endsection
 
@@ -88,16 +88,16 @@
         });
 
         // variable declaration
-        var bornActs_datatable;
+        var diversActs_datatable;
         // datatable initialization
-        dtUrlBornAct = '/api/sdt/born-acts';
-       bornActs_datatable = $("#bornActs_datatable").DataTable({
+        dtUrlDiversAct = '/api/sdt/divers-acts';
+        diversActs_datatable = $("#diversActs_datatable").DataTable({
             responsive: true,
             processing: true,
             paging: true,
             ordering: false,
            ajax: {
-                url: dtUrlBornAct,
+                url: dtUrlDiversAct,
                 type: 'POST',
                // dataSrc: "",
                
@@ -115,7 +115,7 @@
             pageLength: 10,
            
         });
-        bornActs_datatable.on('change', '.group-checkable', function() {
+        diversActs_datatable.on('change', '.group-checkable', function() {
             var set = $(this).closest('table').find('td:first-child .checkable');
             var checked = $(this).is(':checked');
 
@@ -130,15 +130,15 @@
             });
         });
 
-        bornActs_datatable.on('change', 'tbody tr .checkbox', function() {
+        diversActs_datatable.on('change', 'tbody tr .checkbox', function() {
             $(this).parents('tr').toggleClass('active');
         });
 
-        function _reload_bornActs_datatable() {
-            $('#bornActs_datatable').DataTable().ajax.reload();
+        function _reload_DiversActs_datatable() {
+            $('#diversActs_datatable').DataTable().ajax.reload();
         }
 
-        function _deleteBornActs(id) {
+        function _deleteDiversActs(id) {
 
 
 var arrayIds = new Array();
@@ -148,7 +148,7 @@ var j = 0;
 if (id > 0) {
     arrayIds[0] = id;
 } else {
-    $('#bornActs_datatable input[class="checkable"]').each(function() {
+    $('#diversActs_datatable input[class="checkable"]').each(function() {
         var checked = jQuery(this).is(":checked");
         if (checked) {
             arrayIds[j] = jQuery(this).val();
@@ -159,11 +159,11 @@ if (id > 0) {
 
 
 if (arrayIds.length < 1) {
-    swal("Erreur", "Veuillez sélectionner des actes de naissance", "error");
+    swal("Erreur", "Veuillez sélectionner des actes ", "error");
 } else {
-    var successMsg = "L'acte de naissance a été supprimer";
-    var errorMsg = "L'acte de naissance n'a pas été supprimer";
-    var swalConfirmTitle = "Êtes vous sur de vouloir supprimer cet acte de naissance?";
+    var successMsg = "L'acte  a été supprimé";
+    var errorMsg = "L'acte  n'a pas été supprimé";
+    var swalConfirmTitle = "Êtes vous sur de vouloir supprimer cet acte ?";
     var swalConfirmText = "Vous ne pouvez pas revenir en arrière";
     swal({
         title: swalConfirmTitle,
@@ -178,7 +178,7 @@ if (arrayIds.length < 1) {
         if (willDelete) {
 
             $.ajax({
-                url: "/api/delete/born_acts",
+                url: "/api/delete/divers-acts",
                 type: "DELETE",
                 cache: false,
                 data: {
@@ -196,7 +196,7 @@ if (arrayIds.length < 1) {
                     swal("Error", errorMsg, "error");
                 },
                 complete: function(result, status) {
-                    _reload_bornActs_datatable();
+                    _reload_DiversActs_datatable();
                 },
             });
 
