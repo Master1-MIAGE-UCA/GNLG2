@@ -1,7 +1,7 @@
 #!/bin/zsh
 db_user="root"
-db_name="laravel"
-db_pass=""
+db_name="test"
+db_pass="root"
 
 echo "Importing sql files to laravel MySQL database ..."
 mysql -u ${db_user} --password=${db_pass} -e "CREATE DATABASE ${db_name}"
