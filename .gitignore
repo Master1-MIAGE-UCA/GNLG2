@@ -14,4 +14,4 @@ yarn-error.log
 .idea
 .vscode
 .DS_Store
-.~$project_tracking_gnlg2.xlsx
+/project_management/~$project_tracking_gnlg2.xlsx

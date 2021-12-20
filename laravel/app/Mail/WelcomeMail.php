@@ -39,7 +39,6 @@ class WelcomeMail extends Mailable
         $mdp=$this->mdp;
         $site = config('app.name');
         $url_site = config('app.url');
-
         return $this->markdown('emails.welcome', compact('full_name', 'site','url_site','login','mdp'));
     }
 }
