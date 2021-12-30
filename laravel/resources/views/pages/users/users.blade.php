@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
           integrity="sha512-H/zVLBHVS8ZRNSR8wrNZrGFpuHDyN6+p6uaADRefLS4yZYRxfF4049g1GhT+gDExFRB5Kf9jeGr8vueDsyBhhA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
 @endsection
 
 @section('page-style')
@@ -35,6 +36,25 @@
             </button>
             <button class="btn waves-effect waves-light red btn-small" type="button" onclick="_deleteUsers(0)"><i
                     class="material-icons left">delete_forever</i> Supprimer utilisateurs
+            </button>
+            <button
+                class="btn btn-floating ml-1 waves-effect waves-light green darken-4 border-round z-depth-3 floting_btn pull-right"
+                type="button"
+                onclick="exportUsersToExcel()" title="Exporter en Excel"><i
+                    class="material-icons left">file_upload</i> Exporter vers Excel<i class="material-icons right"
+                                                                                      id="exportUsersToExcelButton"></i>
+            </button>
+            <button
+                class="btn btn-floating ml-1 waves-effect waves-light black-text lime lighten-1 border-round z-depth-3 floting_btn pull-right"
+                type="button"
+                onclick="exportUsersToCSV()" title="Exporter en CSV"><i
+                    class="material-icons left">file_upload</i>
+            </button>
+            <button
+                class="btn btn-floating ml-1 waves-effect waves-light black-text border-round z-depth-3 floting_btn pull-right"
+                placeholder="importer" type="button"
+                onclick="importUsers()" title="Importer CSV ou Excel"><i
+                    class="material-icons left">file_download</i>
             </button>
         </div>
         <!-- end::buttons -->
@@ -87,6 +107,7 @@
     <x-modal-form id="user" formName="formUser" formContent="formUserContent"/>
     <!--If formName="show" => donc c'est pas un formulaire   -->
     <x-modal-form id="user_show" formName="show" formContent="showUserContent"/>
+    <x-modal-form id="users_import" formName="formImportUsers" formContent="importUsersContent"/>
 
 
 
@@ -106,7 +127,6 @@
 
     <script src="{{asset('app-assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/sweetalert/sweetalert.min.js')}}"></script>
-
 
 @endsection
 
@@ -200,6 +220,21 @@
             });
         };
 
+        function importUsers() {
+            var preloader = `<x-preloader />`;
+            $("#modal_users_import").modal("open");
+            $("#importUsersContent").html(preloader);
+            $.ajax({
+                url: "/import/users",
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#importUsersContent").html(html);
+                },
+            });
+        }
+
+
         //Validate form
         $("#formUser").validate({
             rules: {},
@@ -235,6 +270,57 @@
                 return false;
             },
         });
+
+        $("#formImportUsers").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                $("#span_btn_submit_formImportUsers").html('<i class="fa fa-spinner fa-spin"></i>');
+                //var formData = $(form).serializeArray(); // convert form to array
+                var formData = new FormData($(form)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/import/users",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        swal("Succes", result, "success");
+                        $("#modal_users_import").modal("close");
+
+                    },
+                    error: function (error) {
+                        swal("Erreur", "Erreur lors de l\'importation", "error");
+                    },
+                    complete: function (resultat, statut) {
+                        $("#span_btn_submit_formImportUsers").html("");
+                        _reload_users_datatable();
+                    },
+                });
+                return false;
+            },
+        });
+
+        function exportUsersToExcel() {
+            var preloader = `<x-preloader />`;
+            var url = '/export/users/excel';
+            $("#exportUsersToExcelButton").html(preloader);
+            window.location.href = url;
+            $("#exportUsersToExcelButton").html("");
+            swal("Succès", "Le fichier EXCEL a bien été télécharger, vérifier vos téléchargements", "success");
+
+        }
+
+        function exportUsersToCSV() {
+            var preloader = `<x-preloader />`;
+            var url = '/export/users/csv';
+            $("#exportUsersToCsvButton").html(preloader);
+            window.location.href = url;
+            $("#exportUsersToCsvButton").html("");
+            swal("Succès", "Le fichier CSV a bien été télécharger, vérifier vos téléchargements", "success");
+
+        }
 
         function _deleteUsers(id) {
 
@@ -303,7 +389,14 @@
             }
         }
 
+        $(".floting_btn").hover(function () {
+            $(this).addClass("pulse");
+        });
+        $(".floting_btn").mouseleave(function () {
+            $(this).removeClass("pulse");
+        });
 
     </script>
+
 @endsection
 

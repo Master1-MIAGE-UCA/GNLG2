@@ -2,20 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExport;
+use App\Imports\UsersImport;
 use App\Library\Services\DbHelperTools;
 use App\Library\Services\MailHelperTools;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AppController extends Controller
 {
     //
+
+    public function dashboardPage()
+    {
+
+        $total_users = User::all()->count();
+        $total_act_nai = 'NaN';
+        $total_act_mar = 'NaN';
+        $total_act_div = 'NaN';
+        $total_act_dec = 'NaN';
+        return view('pages.dashboard', compact('total_users', 'total_act_dec', 'total_act_div', 'total_act_mar', 'total_act_nai'));
+    }
 
     function usersPage()
     {
         return view('pages.users.users');
     }
 
+    function bornActsPage()
+    {
+        return view('pages.acts.bornActs');
+    }
+
+    function mariageActsPage()
+    {
+        return view('pages.acts.mariageActs');
+    }
+
+    function deathActsPage()
+    {
+        return view('pages.acts.deathActs');
+    }
+
+    function DiversActsPage()
+    {
+        return view('pages.acts.diversActs');
+    }
 
     function userForm($id)
     {
@@ -27,6 +61,7 @@ class AppController extends Controller
         }
         // var_dump($user);die();
         return view('pages.users.user-form', compact('user', 'levels', 'statuts'));
+
     }
 
     function userShow($id)
@@ -37,11 +72,17 @@ class AppController extends Controller
             $user = User::find($id);
         }
         // var_dump($user);die();
-        return view('pages.users.user-show',compact('user'));
+        return view('pages.users.user-show', compact('user'));
+    }
+
+    function importUsersPage()
+    {
+        return view('pages.users.users-import');
     }
 
 
-    public function storeFormUser(Request $request)
+    public
+    function storeFormUser(Request $request)
     {
         //var_dump($request->all());die();
         $success = false;
@@ -85,7 +126,7 @@ class AppController extends Controller
                 'solde' => $request->solde,
                 'maj_solde' => $request->maj_solde,
                 'pt_conso' => $request->pt_conso,
-                'auto_mail_send'=> $request->auto_mail_send,
+                'auto_mail_send' => $request->auto_mail_send,
             );
 
             //var_dump($data);die();
@@ -96,9 +137,9 @@ class AppController extends Controller
                 $msg = 'L\'utilisateur est bien été enregistrer';
 
                 //Si c'est la création de l'utilisateur et il est bien enregistrer alors envoie lui un email
-                if($data['ID']==0 && $data['auto_mail_send']=='on'){
+                if ($data['ID'] == 0 && $data['auto_mail_send'] == 'on') {
 
-                    $MailHelperTools->sendCreationUserMail($data['prenom'],$data['nom'],$data['login'],$data['hashpass'],$data['email']);
+                    $MailHelperTools->sendCreationUserMail($data['prenom'], $data['nom'], $data['login'], $data['hashpass'], $data['email']);
                     $msg .= 'et l\'email est bien été envoyé';
                 }
 
@@ -109,5 +150,30 @@ class AppController extends Controller
             'msg' => $msg,
         ]);
     }
+
+    public function exportUsersToExcel()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "users_" . $date . ".xlsx";
+        return Excel::download(new UserExport(), $name);
+
+    }
+
+    public function exportUsersToCSV()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "users_" . $date . ".csv";
+        return Excel::download(new UserExport(), $name);
+    }
+
+    public function importUsers()
+    {
+        // var_dump($request->file());die();
+
+        $msg = "Les utilisateurs ont bien été importer";
+        Excel::import(new UsersImport(request()->auto_mail_send), request()->file('import-users-files'));
+        return (request()->auto_mail_send == "on" ? $msg . ' et les emails d\'informations ont été bien envoyé' : $msg);
+    }
+
 
 }
