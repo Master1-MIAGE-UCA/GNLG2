@@ -130,13 +130,14 @@
             <div class="col s12">
                 <label>
                     <input type="checkbox" id="auto_mail_send" name="auto_mail_send"/>
-                    <span>Envoi automatique du mail ci-dessous </span>
+                    <span>Envoi automatique d'un mail au personne conserner</span>
                 </label>
             </div>
         </div>
 
     </div>
 </div>
+
 
 <script>
 

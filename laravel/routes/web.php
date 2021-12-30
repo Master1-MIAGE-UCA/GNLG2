@@ -6,6 +6,7 @@ use App\Mail\WelcomeMail;
 use FamilyTree365\LaravelGedcom\Utils\GedcomParser;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.test');
-});
+Route::get('/', [AppController::class, 'dashboardPage'])->name('dashboard');
 
-Route::get('/email', function () {
-    //$name = "Oussama";
-    //Mail::to('recever@expoactes.fr')->send(new WelcomeMail($name));
-    return new WelcomeMail("Oussama", "SAMIA", "OussaJr_", "MDP");
-});
+
+
+
+Route::get('/users',[AppController::class,'usersPage']);
 
 Route::get('/users',[AppController::class,'usersPage']);
 Route::get('/born-acts',[AppController::class,'bornActsPage']);

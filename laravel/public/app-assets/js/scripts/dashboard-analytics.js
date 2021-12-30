@@ -2,10 +2,7 @@
 //----------------------
 
 (function (window, document, $) {
-   //Sample toast
-   setTimeout(function () {
-      M.toast({ html: "Hey! I am a toast." });
-   }, 2000);
+
 
    // Check first if any of the task is checked
    $("#task-card input:checkbox").each(function () {

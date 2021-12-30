@@ -2,14 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExport;
+use App\Imports\UsersImport;
 use App\Library\Services\DbHelperTools;
 use App\Library\Services\MailHelperTools;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AppController extends Controller
 {
     //
+
+    public function dashboardPage()
+    {
+
+        $total_users = User::all()->count();
+        $total_act_nai = 'NaN';
+        $total_act_mar = 'NaN';
+        $total_act_div = 'NaN';
+        $total_act_dec = 'NaN';
+        return view('pages.dashboard', compact('total_users', 'total_act_dec', 'total_act_div', 'total_act_mar', 'total_act_nai'));
+    }
 
     function usersPage()
     {
@@ -46,7 +61,6 @@ class AppController extends Controller
         }
         // var_dump($user);die();
         return view('pages.users.user-form', compact('user', 'levels', 'statuts'));
-
     }
 
     function userShow($id)
@@ -58,6 +72,11 @@ class AppController extends Controller
         }
         // var_dump($user);die();
         return view('pages.users.user-show', compact('user'));
+    }
+
+    function importUsersPage()
+    {
+        return view('pages.users.users-import');
     }
 
 
@@ -130,5 +149,30 @@ class AppController extends Controller
             'msg' => $msg,
         ]);
     }
+
+    public function exportUsersToExcel()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "users_" . $date . ".xlsx";
+        return Excel::download(new UserExport(), $name);
+
+    }
+
+    public function exportUsersToCSV()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "users_" . $date . ".csv";
+        return Excel::download(new UserExport(), $name);
+    }
+
+    public function importUsers()
+    {
+        // var_dump($request->file());die();
+
+        $msg = "Les utilisateurs ont bien été importer";
+        Excel::import(new UsersImport(request()->auto_mail_send), request()->file('import-users-files'));
+        return (request()->auto_mail_send == "on" ? $msg . ' et les emails d\'informations ont été bien envoyé' : $msg);
+    }
+
 
 }

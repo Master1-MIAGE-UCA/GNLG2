@@ -32,6 +32,16 @@ class User extends Authenticatable
         'prenom',
         'email',
         'hashpass',
+        'level',
+        'regime',
+        'solde',
+        'maj_solde',
+        'statut',
+        'dtcreation',
+        'dtexpiration',
+        'pt_conso',
+        'REM',
+        'libre',
     ];
 
     /**
