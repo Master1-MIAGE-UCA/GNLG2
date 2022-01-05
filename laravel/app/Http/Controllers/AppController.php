@@ -12,7 +12,9 @@ use App\Models\MariageAct;
 use App\Models\DiverAct;
 use App\Models\DeathAct;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AppController extends Controller
@@ -25,7 +27,7 @@ class AppController extends Controller
         $msg = 'Les parametres ne sont pas bien enregistrer  ';
         if ($request->isMethod('post')) {
             $DbHelperTools = new DbHelperTools();
-         
+
 
             //var_dump($request->all());die();
 
@@ -84,7 +86,7 @@ class AppController extends Controller
     {
         return view('pages.indications.aideSupport');
     }
-  
+
     function aideGestBdPage()
     {
         return view('pages.indications.aideGestionBD');
@@ -148,7 +150,7 @@ class AppController extends Controller
     function bornActForm($id)
     {
         $bornAct = null;
-      
+
         if ($id > 0) {
             $bornAct = BornAct::find($id);
         }
@@ -158,7 +160,7 @@ class AppController extends Controller
     function mariageActForm($id)
     {
         $mariageAct = null;
-      
+
         if ($id > 0) {
             $mariageAct = MariageAct::find($id);
         }
@@ -168,7 +170,7 @@ class AppController extends Controller
     function deathActForm($id)
     {
         $deathAct = null;
-      
+
         if ($id > 0) {
             $deathAct = DeathAct::find($id);
         }
@@ -178,7 +180,7 @@ class AppController extends Controller
     function diversActForm($id)
     {
         $diversAct = null;
-      
+
         if ($id > 0) {
             $diversAct = DiverAct::find($id);
         }
@@ -187,14 +189,14 @@ class AppController extends Controller
     }
     function userShow($id)
     {
-        $user= null;
+        $user = null;
 
         if ($id > 0) {
             $user = User::find($id);
         }
         // var_dump($user);die();
         return view('pages.users.user-show', compact('user'));
-       
+
     }
     function bornActShow($id)
     {
@@ -333,7 +335,7 @@ class AppController extends Controller
         $msg = 'L acte de naissance n\'est pas bien enregistrer  ';
         if ($request->isMethod('post')) {
             $DbHelperTools = new DbHelperTools();
-         
+
 
             //var_dump($request->all());die();
 
@@ -431,7 +433,7 @@ class AppController extends Controller
                 $success = true;
                 $msg = 'L\'acte de naissance est bien été enregistrer';
 
-              
+
 
             }
         }
@@ -457,7 +459,7 @@ class AppController extends Controller
         $msg = 'Acte mariage n\'est pas bien enregistrer  ';
         if ($request->isMethod('post')) {
             $DbHelperTools = new DbHelperTools();
-           
+
 
             //var_dump($request->all());die();
 
@@ -465,7 +467,7 @@ class AppController extends Controller
             $required = (($request->ID == 0) ? 'required' : '');
             $unique = ($request->ID == '0') ? '|unique:act_mar3' : '';
             $validated = $request->validate([
-           
+
                 "CODCOM" =>'max:100',
                 "COMMUNE" =>'max:100',
                 "CODDEP"=>'max:100',
@@ -603,7 +605,7 @@ class AppController extends Controller
                 $success = true;
                 $msg = 'L\'acte de mariage est bien été enregistrer';
 
-              
+
 
             }
         }
@@ -619,7 +621,7 @@ class AppController extends Controller
         $msg = 'Acte  n\'est pas bien enregistrer  ';
         if ($request->isMethod('post')) {
             $DbHelperTools = new DbHelperTools();
-           
+
 
             //var_dump($request->all());die();
 
@@ -627,7 +629,7 @@ class AppController extends Controller
             $required = (($request->ID == 0) ? 'required' : '');
             $unique = ($request->ID == '0') ? '|unique:act_div3' : '';
             $validated = $request->validate([
-           
+
                 "CODCOM" =>'max:100',
                 "COMMUNE" =>'max:100',
                 "CODDEP"=>'max:100',
@@ -765,7 +767,7 @@ class AppController extends Controller
                 $success = true;
                 $msg = 'L\'acte est bien été enregistrer';
 
-              
+
 
             }
         }
@@ -781,7 +783,7 @@ class AppController extends Controller
         $msg = 'Acte de décés n\'est pas bien enregistrer  ';
         if ($request->isMethod('post')) {
             $DbHelperTools = new DbHelperTools();
-           
+
 
             //var_dump($request->all());die();
 
@@ -789,7 +791,7 @@ class AppController extends Controller
             $required = (($request->ID == 0) ? 'required' : '');
             $unique = ($request->ID == '0') ? '|unique:act_dec3' : '';
             $validated = $request->validate([
-           
+
                 "CODCOM" =>'max:100',
                 "COMMUNE" =>'max:100',
                 "CODDEP"=>'max:100',
@@ -929,7 +931,7 @@ class AppController extends Controller
                 $success = true;
                 $msg = 'L\'acte de décés est bien été enregistrer';
 
-              
+
 
             }
         }
@@ -938,4 +940,13 @@ class AppController extends Controller
             'msg' => $msg,
         ]);
     }
+    public function downloadExampleUsers()
+    {
+        return Storage::get('exemple-users.csv');
+         //return Storage::download('csv/exemple-users.csv');
+         //Storage::disk('public')->download('exemple-users');
+
+    }
+
+
 }

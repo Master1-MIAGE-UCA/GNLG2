@@ -24,7 +24,6 @@ Route::get('/', [AppController::class, 'dashboardPage'])->name('dashboard');
 
 
 
-//Route::get('/users',[AppController::class,'usersPage']);
 
 Route::get('/users',[AppController::class,'usersPage']);
 Route::get('/logiciel_params',[AppController::class,'paramsPage']);
@@ -72,12 +71,22 @@ Route::get('/form/diversAct/{id}', [AppController::class, 'diversActForm']);
 Route::post('/form/diversAct', [AppController::class, 'storeFormDiversAct']);
 Route::post('/form/param', [AppController::class, 'storeFormParam']);
 
-Route::prefix('import')->group(function () {
-    Route::get('gedcom', function () {
 
-        $filename = asset('gedcom/JacquelineLapiere.ged');
-        $parser = new GedcomParser();
-        $parser->parse($filename, true, "1");
-        echo "Success";
+
+Route::prefix('export')->group(function (){
+    Route::prefix('users')->group(function (){
+        Route::get('excel',[AppController::class,'exportUsersToExcel']);
+        Route::get('csv',[AppController::class,'exportUsersToCSV']);
     });
 });
+Route::prefix('import')->group(function () {
+        Route::get('users', [AppController::class, 'importUsersPage']);
+        Route::post('users', [AppController::class, 'importUsers']);
+});
+
+Route::prefix('download')->group(function (){
+    Route::prefix('example')->group(function (){
+        Route::get('users',[AppController::class, 'downloadExampleUsers']);
+    });
+});
+
