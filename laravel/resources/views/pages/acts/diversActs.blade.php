@@ -24,7 +24,7 @@
 
         <!-- begin::buttons -->
         <div class="card-panel">
-            <button class="btn waves-effect waves-light btn-small" type="button" onclick="_formBornAct(0)"><i
+            <button class="btn waves-effect waves-light btn-small" type="button" onclick="_formDiversAct(0)"><i
                     class="material-icons left">add</i> Ajouter des actes (WIP) </button>
             <button class="btn waves-effect waves-light blue btn-small" type="button" onclick="_reload_DiversActs_datatable()"><i
                     class="material-icons left">refresh</i>
@@ -66,6 +66,8 @@
     </section>
 
     <!-- MariageActs list ends -->
+    <x-modal-form id="diversAct_show" formName="show" formContent="showDiversActContent"/>
+    <x-modal-form id="diversAct" formName="formDiversAct" formContent="formDiversActContent"/>
 
 @endsection
 
@@ -73,7 +75,7 @@
 {{-- vendor scripts --}}
 @section('vendor-script')
     <script src="{{asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>
+  <!--  <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>-->
     <script src="{{asset('app-assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/sweetalert/sweetalert.min.js')}}"></script>
 @endsection
@@ -86,7 +88,43 @@
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-
+        $(function () {
+            $(".modal").modal();
+        });
+        $("#formDiversAct").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                $("#span_btn_submit_formDiversAct").html('<i class="fa fa-spinner fa-spin"></i>');
+                //var formData = $(form).serializeArray(); // convert form to array
+                var formData = new FormData($(form)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/form/diversAct",
+                    data: formData,
+                    dataType: "JSON",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        if (result.success) {
+                            swal("Succes", result.msg, "success");
+                            $("#modal_diversAct").modal("close");
+                        } else {
+                            swal("Erreur", result.msg, "error");
+                        }
+                    },
+                    error: function (error) {
+                        swal("Erreur", "Veuillez vérifier les champs saisie", "error");
+                    },
+                    complete: function (resultat, statut) {
+                        $("#span_btn_submit_formMariageAct").html("");
+                        _reload_DiversActs_datatable();
+                    },
+                });
+                return false;
+            },
+        });
         // variable declaration
         var diversActs_datatable;
         // datatable initialization
@@ -100,20 +138,20 @@
                 url: dtUrlDiversAct,
                 type: 'POST',
                // dataSrc: "",
-               
+
                 data: {
                     pagination: {
                         perpage: 50,
                     },
-                    
+
                 },
             },
-      
+
 
 
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
-           
+
         });
         diversActs_datatable.on('change', '.group-checkable', function() {
             var set = $(this).closest('table').find('td:first-child .checkable');
@@ -205,8 +243,34 @@ if (arrayIds.length < 1) {
 }
 
 }
-       
-       
+function _showDiversAct(id) {
+            var preloader = `<x-preloader />`;
+            $("#modal_diversAct_show").modal("open");
+            $("#showDiversActContent").html(preloader);
+            $.ajax({
+                url: "/show/diversAct/" + id,
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#showDiversActContent").html(html);
+                },
+            });
+        }
+        function _formDiversAct(id) {
+
+           var preloader = `<x-preloader />`;
+           $("#modal_diversAct").modal("open");
+           $("#formDiversActContent").html(preloader);
+           $.ajax({
+               url: "/form/diversAct/" + id,
+               type: "GET",
+               dataType: "html",
+               success: function (html, status) {
+                   $("#formDiversActContent").html(html);
+               },
+           });
+       }
+
     </script>
 @endsection
 

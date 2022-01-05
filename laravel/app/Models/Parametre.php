@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MariageAct extends Model
+class Parametre extends Model
 {
     public $timestamps = false;
     protected $primaryKey = 'ID';
-    protected $table = 'act_mar3';
+    protected $table = 'act_params';
     use HasFactory;
 }

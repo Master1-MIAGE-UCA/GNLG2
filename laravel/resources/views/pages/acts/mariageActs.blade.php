@@ -44,7 +44,7 @@
                             <tr>
                                 <th>
                                     <label class="checkbox checkbox-single">
-                                      
+
                                         <input type="checkbox" value="" class="group-checkable" />
                                         <span></span>
                                     </label>
@@ -67,6 +67,8 @@
     </section>
 
     <!-- MariageActs list ends -->
+    <x-modal-form id="mariageAct_show" formName="show" formContent="showMariageActContent"/>
+    <x-modal-form id="mariageAct" formName="formMariageAct" formContent="formMariageActContent"/>
 
 @endsection
 
@@ -87,7 +89,44 @@
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-
+        $(function () {
+            $(".modal").modal();
+        });
+          //Validate form
+          $("#formMariageAct").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                $("#span_btn_submit_formMariageAct").html('<i class="fa fa-spinner fa-spin"></i>');
+                //var formData = $(form).serializeArray(); // convert form to array
+                var formData = new FormData($(form)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/form/mariageAct",
+                    data: formData,
+                    dataType: "JSON",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        if (result.success) {
+                            swal("Succes", result.msg, "success");
+                            $("#modal_mariageAct").modal("close");
+                        } else {
+                            swal("Erreur", result.msg, "error");
+                        }
+                    },
+                    error: function (error) {
+                        swal("Erreur", "Veuillez vérifier les champs saisie", "error");
+                    },
+                    complete: function (resultat, statut) {
+                        $("#span_btn_submit_formMariageAct").html("");
+                        _reload_MariageActs_datatable();
+                    },
+                });
+                return false;
+            },
+        });
         // variable declaration
         var mariageActs_datatable;
         // datatable initialization
@@ -101,20 +140,20 @@
                 url: dtUrlMariageAct,
                 type: 'POST',
                // dataSrc: "",
-               
+
                 data: {
                     pagination: {
                         perpage: 50,
                     },
-                    
+
                 },
             },
-      
+
 
 
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
-           
+
         });
         mariageActs_datatable.on('change', '.group-checkable', function() {
             var set = $(this).closest('table').find('td:first-child .checkable');
@@ -206,8 +245,36 @@ if (arrayIds.length < 1) {
 }
 
 }
-       
-       
+function _formMariageAct(id) {
+
+           var preloader = `<x-preloader />`;
+           $("#modal_mariageAct").modal("open");
+           $("#formMariageActContent").html(preloader);
+           $.ajax({
+               url: "/form/mariageAct/" + id,
+               type: "GET",
+               dataType: "html",
+               success: function (html, status) {
+                   $("#formMariageActContent").html(html);
+               },
+           });
+       }
+function _showMariageAct(id) {
+            var preloader = `<x-preloader />`;
+            $("#modal_mariageAct_show").modal("open");
+            $("#showMariageActContent").html(preloader);
+            $.ajax({
+                url: "/show/mariageAct/" + id,
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#showMariageActContent").html(html);
+                },
+            });
+        }
+
+
     </script>
+
 @endsection
 

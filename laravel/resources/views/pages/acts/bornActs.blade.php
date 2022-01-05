@@ -24,6 +24,7 @@
 
         <!-- begin::buttons -->
         <div class="card-panel">
+
             <button class="btn waves-effect waves-light btn-small" type="button" onclick="_formBornAct(0)"><i
                     class="material-icons left">add</i> Ajouter des actes de naissance (WIP) </button>
             <button class="btn waves-effect waves-light blue btn-small" type="button" onclick="_reload_bornActs_datatable()"><i
@@ -66,14 +67,15 @@
     </section>
 
     <!-- bornActs list ends -->
-
+    <x-modal-form id="bornAct_show" formName="show" formContent="showBornActContent"/>
+    <x-modal-form id="bornAct" formName="formBornAct" formContent="formBornActContent"/>
 @endsection
 
 
 {{-- vendor scripts --}}
 @section('vendor-script')
     <script src="{{asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script>
+   <!-- <script src="{{asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js')}}"></script> -->
     <script src="{{asset('app-assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/sweetalert/sweetalert.min.js')}}"></script>
 @endsection
@@ -86,7 +88,44 @@
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-
+        $(function () {
+            $(".modal").modal();
+        });
+         //Validate form
+         $("#formBornAct").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                $("#span_btn_submit_formBornAct").html('<i class="fa fa-spinner fa-spin"></i>');
+                //var formData = $(form).serializeArray(); // convert form to array
+                var formData = new FormData($(form)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/form/bornAct",
+                    data: formData,
+                    dataType: "JSON",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        if (result.success) {
+                            swal("Succes", result.msg, "success");
+                            $("#modal_bornAct").modal("close");
+                        } else {
+                            swal("Erreur", result.msg, "error");
+                        }
+                    },
+                    error: function (error) {
+                        swal("Erreur", "Veuillez vérifier les champs saisie", "error");
+                    },
+                    complete: function (resultat, statut) {
+                        $("#span_btn_submit_formBornAct").html("");
+                        _reload_bornActs_datatable();
+                    },
+                });
+                return false;
+            },
+        });
         // variable declaration
         var bornActs_datatable;
         // datatable initialization
@@ -100,20 +139,20 @@
                 url: dtUrlBornAct,
                 type: 'POST',
                // dataSrc: "",
-               
+
                 data: {
                     pagination: {
                         perpage: 50,
                     },
-                    
+
                 },
             },
-      
+
 
 
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
-           
+
         });
         bornActs_datatable.on('change', '.group-checkable', function() {
             var set = $(this).closest('table').find('td:first-child .checkable');
@@ -202,11 +241,34 @@ if (arrayIds.length < 1) {
 
         }
     });
-}
+} }
+function _showBornAct(id) {
+            var preloader = `<x-preloader />`;
+            $("#modal_bornAct_show").modal("open");
+            $("#showBornActContent").html(preloader);
+            $.ajax({
+                url: "/show/bornAct/" + id,
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#showBornActContent").html(html);
+                },
+            });
+        }
+        function _formBornAct(id) {
+            var preloader = `<x-preloader />`;
+            $("#modal_bornAct").modal("open");
+            $("#formBornActContent").html(preloader);
+            $.ajax({
+                url: "/form/bornAct/" + id,
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#formBornActContent").html(html);
+                },
+            });
+        }
 
-}
-       
-       
     </script>
 @endsection
 

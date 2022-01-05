@@ -24,9 +24,13 @@ Route::get('/', [AppController::class, 'dashboardPage'])->name('dashboard');
 
 
 
-Route::get('/users',[AppController::class,'usersPage']);
+//Route::get('/users',[AppController::class,'usersPage']);
 
 Route::get('/users',[AppController::class,'usersPage']);
+Route::get('/logiciel_params',[AppController::class,'paramsPage']);
+Route::get('/aide_Actes',[AppController::class,'aideActesPage']);
+Route::get('/aide_GestBD',[AppController::class,'aideGestBdPage']);
+Route::get('/aide-Supp',[AppController::class,'aideSuppPage']);
 Route::get('/born-acts',[AppController::class,'bornActsPage']);
 Route::get('/mariage-acts',[AppController::class,'mariageActsPage']);
 Route::get('/death-acts',[AppController::class,'deathActsPage']);
@@ -51,8 +55,22 @@ Route::prefix('api')->group(function () {
 });
 
 Route::get('/show/user/{id}', [AppController::class, 'userShow']);
+Route::get('/show/bornAct/{id}', [AppController::class, 'bornActShow']);
+Route::get('/show/mariageAct/{id}', [AppController::class, 'mariageActShow']);
+Route::get('/show/deathAct/{id}', [AppController::class, 'deathActShow']);
+Route::get('/show/diversAct/{id}', [AppController::class, 'diversActShow']);
+
 Route::get('/form/user/{id}', [AppController::class, 'userForm']);
 Route::post('/form/user', [AppController::class, 'storeFormUser']);
+Route::get('/form/bornAct/{id}', [AppController::class, 'bornActForm']);
+Route::post('/form/bornAct', [AppController::class, 'storeFormBornAct']);
+Route::get('/form/deathAct/{id}', [AppController::class, 'deathActForm']);
+Route::post('/form/deathAct', [AppController::class, 'storeFormDeathAct']);
+Route::get('/form/mariageAct/{id}', [AppController::class, 'mariageActForm']);
+Route::post('/form/mariageAct', [AppController::class, 'storeFormMariageAct']);
+Route::get('/form/diversAct/{id}', [AppController::class, 'diversActForm']);
+Route::post('/form/diversAct', [AppController::class, 'storeFormDiversAct']);
+Route::post('/form/param', [AppController::class, 'storeFormParam']);
 
 Route::prefix('import')->group(function () {
     Route::get('gedcom', function () {

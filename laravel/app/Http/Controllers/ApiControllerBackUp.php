@@ -37,7 +37,7 @@ class ApiController extends Controller
             //<th>Filiatifs</th>
             $filiatifs = $b->LIBRE;
             $row[] = $filiatifs;
-
+         
             //<th>Actions</th>
             $btn_edit = '<a href="javascript:void(0)" onclick="_formDiversAct(' . $b->ID . ')" class="green-text"><i class="material-icons">edit</i></a>';
             //$btn_view='<a href="javascript:void(0)"><i class="material-icons">remove_red_eye</i></a>';
@@ -56,7 +56,7 @@ class ApiController extends Controller
         $result = [
             'data' => $data,
         ];
-        
+       
         return response()->json($result);
     }
     public function sdtDeathActs(Request $request)
@@ -64,7 +64,7 @@ class ApiController extends Controller
         $data = $meta = [];
        // var_dump("test l13");die();
         $DeathActs = DeathAct::orderByDesc('ID')->get();
-    //  var_dump($DeathActs);die();
+      //  var_dump($MariageActs);die();
         foreach ($DeathActs as $b) {
             $row = array();
             //<th>Id</th>
@@ -98,7 +98,7 @@ class ApiController extends Controller
             // $row[]  = "";
             // $row[]  = "";
             // $row[]  = ""; 
-           //var_dump($row);die();
+           // var_dump($row);die();
             $data[] = $row;
         } 
         $result = [
@@ -132,27 +132,27 @@ class ApiController extends Controller
             //<th>Filiatifs</th>
             $filiatifs = $b->LIBRE;
             $row[] = $filiatifs;
-
+         
             //<th>Actions</th>
             $btn_edit = '<a href="javascript:void(0)" onclick="_formMariageAct(' . $b->ID . ')" class="green-text"><i class="material-icons">edit</i></a>';
             //$btn_view='<a href="javascript:void(0)"><i class="material-icons">remove_red_eye</i></a>';
             $btn_delete = '<a href="javascript:void(0)" onclick="_deleteMariageActs(' . $b->ID . ')" class="grey-text"><i class="material-icons">delete</i></a>';
             $btn_view = '<a href="javascript:void(0)" onclick="_showMariageAct(' . $b->ID . ')"><i class="material-icons">remove_red_eye</i></a>';
             $row[] = $btn_view . $btn_edit . $btn_delete;
-
+           
            // $row[]  = "";
            //  $row[]  = "";
            //  $row[]  = "";
             // $row[]  = "";
             // $row[]  = "";
-            // $row[]  = "";
+            // $row[]  = ""; 
            // var_dump($row);die();
             $data[] = $row;
-        }
+        } 
         $result = [
             'data' => $data,
         ];
-
+       
         return response()->json($result);
     }
     public function sdtBornActs(Request $request)
@@ -180,7 +180,7 @@ class ApiController extends Controller
             //<th>Filiatifs</th>
             $filiatifs = $b->LIBRE;
             $row[] = $filiatifs;
-
+         
             //<th>Actions</th>
             $btn_edit = '<a href="javascript:void(0)" onclick="_formBornAct(' . $b->ID . ')" class="green-text"><i class="material-icons">edit</i></a>';
             //$btn_view='<a href="javascript:void(0)"><i class="material-icons">remove_red_eye</i></a>';
@@ -192,14 +192,14 @@ class ApiController extends Controller
            //  $row[]  = "";
             // $row[]  = "";
             // $row[]  = "";
-            // $row[]  = "";
+            // $row[]  = ""; 
             //var_dump($row);die();
             $data[] = $row;
-        }
+        } 
         $result = [
             'data' => $data,
         ];
-
+       
         return response()->json($result);
     }
 
@@ -332,7 +332,7 @@ class ApiController extends Controller
             }
         }
         return response()->json(['success' => $success]);
-    }
+    } 
     public function deleteMariageActs(Request $request)
     {
         $success = false;
@@ -348,7 +348,7 @@ class ApiController extends Controller
             }
         }
         return response()->json(['success' => $success]);
-    }
+    } 
     public function deleteDeathActs(Request $request)
     {
         $success = false;
@@ -364,7 +364,7 @@ class ApiController extends Controller
             }
         }
         return response()->json(['success' => $success]);
-    }
+    } 
     public function   deleteDiversActs(Request $request)
     {
         $success = false;
@@ -381,5 +381,5 @@ class ApiController extends Controller
         }
         return response()->json(['success' => $success]);
     }
-
+  
 }
