@@ -51,6 +51,8 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'hashpass',
+        'remember_token',
+        'email_verified_at',
     ];
 
 

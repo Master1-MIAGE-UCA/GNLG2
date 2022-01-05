@@ -21,9 +21,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/', [AppController::class, 'dashboardPage'])->name('dashboard');
 
-
-
-
 Route::get('/users',[AppController::class,'usersPage']);
 
 
@@ -46,22 +43,7 @@ Route::get('/show/user/{id}', [AppController::class, 'userShow']);
 Route::get('/form/user/{id}', [AppController::class, 'userForm']);
 Route::post('/form/user', [AppController::class, 'storeFormUser']);
 
-Route::prefix('import')->group(function () {
-    Route::get('gedcom', function () {
 
-        $filename = asset('gedcom/JacquelineLapiere.ged');
-        $parser = new GedcomParser();
-        $parser->parse($filename, true, "1");
-        echo "Success";
-    });
-});
-
-
-Route::get('/email', function () {
-    //$name = "Oussama";
-    //Mail::to('recever@expoactes.fr')->send(new WelcomeMail($name));
-    return new WelcomeMail("Oussama", "SAMIA", "OussaJr_", "MDP");
-});
 
 Route::prefix('export')->group(function (){
     Route::prefix('users')->group(function (){
@@ -73,3 +55,10 @@ Route::prefix('import')->group(function () {
         Route::get('users', [AppController::class, 'importUsersPage']);
         Route::post('users', [AppController::class, 'importUsers']);
 });
+
+Route::prefix('download')->group(function (){
+    Route::prefix('example')->group(function (){
+        Route::get('users',[AppController::class, 'downloadExampleUsers']);
+    });
+});
+

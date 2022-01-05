@@ -8,7 +8,9 @@ use App\Library\Services\DbHelperTools;
 use App\Library\Services\MailHelperTools;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AppController extends Controller
@@ -173,6 +175,14 @@ class AppController extends Controller
         $msg = "Les utilisateurs ont bien été importer";
         Excel::import(new UsersImport(request()->auto_mail_send), request()->file('import-users-files'));
         return (request()->auto_mail_send == "on" ? $msg . ' et les emails d\'informations ont été bien envoyé' : $msg);
+    }
+
+    public function downloadExampleUsers()
+    {
+        return Storage::get('exemple-users.csv');
+         //return Storage::download('csv/exemple-users.csv');
+         //Storage::disk('public')->download('exemple-users');
+
     }
 
 

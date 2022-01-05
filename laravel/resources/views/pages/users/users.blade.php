@@ -396,6 +396,16 @@
             $(this).removeClass("pulse");
         });
 
+        function _downloadExempleUsersCSV(){
+            $.ajax({
+                type: "GET",
+                url: "/download/example/users",
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
+        }
+
     </script>
 
 @endsection
