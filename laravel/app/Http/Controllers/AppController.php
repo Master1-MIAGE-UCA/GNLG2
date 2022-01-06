@@ -22,66 +22,51 @@ class AppController extends Controller
     //
     public function storeFormParam(Request $request){
 
-//var_dump($request->all());die();
+        //var_dump($request->all());die();
         $success = false;
         $msg = 'Les parametres ne sont pas bien enregistrer  ';
         if ($request->isMethod('post')) {
-            $DbHelperTools = new DbHelperTools();
 
 
-            //var_dump($request->all());die();
 
 
-            $required = (($request->ID == 0) ? 'required' : '');
-            $unique = ($request->ID == '0') ? '|unique:act_params' : '';
-            $validated = $request->validate([
-                'login' => 'required' . $unique . '|max:15',
-                'hashpass' => $required,
-                'nom' => 'required|max:30',
-                'prenom' => 'required|max:30',
-                'email' => 'required' . $unique . '|max:30',
-                'libre' => 'max:100',
-                'REM' => 'max:50',
-            ]);
+            /*
+            //Begin show_logo_sign_in
+            if (isset($request->show_logo_sign_in)) {
+                $show_logo_sign_in = $request->show_logo_sign_in;
+                Setting::where('name', 'show_logo_sign_in')->update(['value' => $show_logo_sign_in]);
+            }
+            //End show_logo_sign_in
 
-            //   dd($validated);
 
-            $data = array(
-                'ID' => $request->ID,
-                'login' => $request->login,
-                'hashpass' => $request->hashpass,
-                'nom' => $request->nom,
-                'prenom' => $request->prenom,
-                'email' => $request->email,
-                'level' => $request->level,
-                'statut' => $request->statut,
-                'dtcreation' => $request->dtcreation,
-                'dtexpiration' => $request->dtexpiration,
-                'REM' => $request->REM,
-                'libre' => $request->libre,
-                //Pas encore connu avec quoi il faut les remplir :
-                'regime' => $request->regime,
-                'solde' => $request->solde,
-                'maj_solde' => $request->maj_solde,
-                'pt_conso' => $request->pt_conso,
-                'auto_mail_send' => $request->auto_mail_send,
-            );
+            //Begin app_title
+            if (isset($request->app_title)) {
+                $app_title = $request->app_title;
+                Setting::where('name', 'app_title')->update(['value' => $app_title]);
+            }
+            //End app_title
 
-            //var_dump($data);die();
+            //Begin language
+            if (isset($request->language)) {
+                $language = $request->language;
+                Setting::where('name', 'language')->update(['value' => $language]);
+            }
+            //End language
 
-            $param_id = $DbHelperTools->manageParams($data);
-            if ($param_id > 0) {
+            */
+
+
+
                 $success = true;
                 $msg = 'Les parametres sont bien été enregistrer';
 
-
-            }
         }
         return response()->json([
             'success' => $success,
             'msg' => $msg,
         ]);
     }
+
     function aideSuppPage()
     {
         return view('pages.indications.aideSupport');
