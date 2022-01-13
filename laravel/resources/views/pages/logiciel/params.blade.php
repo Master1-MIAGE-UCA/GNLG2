@@ -168,14 +168,14 @@
                                         <h6 class="card-title" >Style du message cookies</h6>
 
                                         <div class="input-field">
-                                            <select class="select2 browser-default">
+                                            <select class="select2 browser-default" id="cookieStyle" name="cookieStyle">
                                                 <optgroup>
-                                                    <option value="romboid">1- En haut, foncé</option>
-                                                    <option value="trapeze">2- En haut, clair</option>
-                                                    <option value="triangle">3- En bas, foncé</option>
-                                                    <option value="polygon">4- En bas, clair</option>
-                                                    <option value="polygon">5- flottant, foncé</option>
-                                                    <option value="polygon">6- flottant, clair</option>
+                                                    <option value="1" {{($cookieStyle->valeur == 1)?'selected':''}}>1- En haut, foncé</option>
+                                                    <option value="2" {{($cookieStyle->valeur == 2)?'selected':''}}>2- En haut, clair</option>
+                                                    <option value="3" {{($cookieStyle->valeur == 3)?'selected':''}}>3- En bas, foncé</option>
+                                                    <option value="4" {{($cookieStyle->valeur == 4)?'selected':''}}>4- En bas, clair</option>
+                                                    <option value="5" {{($cookieStyle->valeur == 5)?'selected':''}}>5- flottant, foncé</option>
+                                                    <option value="6" {{($cookieStyle->valeur == 6)?'selected':''}}>6- flottant, clair</option>
                                                 </optgroup>
 
                                             </select>
