@@ -235,7 +235,7 @@ Resolving
 
 
 <!-- BEGIN: SideNav-->
-<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
+<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded" >
     <div class="brand-sidebar">
         <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="/"><img class="hide-on-med-and-down "
                                                                               src="{{asset('app-assets/images/favicon/expoactes.jpg')}}"
@@ -250,18 +250,66 @@ Resolving
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="accordion">
         <li class="active bold"><a class="waves-effect waves-cyan " href="/"><i
-                    class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
+                    class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Acceuil</span></a>
         </li>
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
                     class="material-icons">settings</i><span class="menu-title"
                                                              data-i18n="Dashboard">Gestion APP</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li><a href="/logiciel_params"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Administration du logiciel</span></a></li>
+                </ul>
+            </div>
+          
+        </li>
+
+        <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
+                    class="material-icons">people</i><span class="menu-title"
+                                                             data-i18n="Dashboard">Gestion des utilisateurs</span></a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li><a href="/users"><i class="material-icons">radio_button_unchecked</i><span
-                                data-i18n="Modern">Utilisateurs</span></a>
+                                data-i18n="Modern">Utilisateurs</span></a></li>
+                </ul>
+            </div>
+          
+        </li>
+        <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
+                    class="material-icons">note_add</i><span class="menu-title"
+                                                             data-i18n="Dashboard">Gestion des actes</span></a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li><a href="/born-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes de naissances</span></a>
+                    </li>
+                    <li><a href="/mariage-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes de mariage</span></a>
+                    </li>
+                    <li><a href="/death-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes de deces</span></a>
+                    </li>
+                    <li><a href="/divers-acts"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Actes divers</span></a>
                     </li>
                 </ul>
             </div>
+        </li>
+        <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
+                    class="material-icons">help</i><span class="menu-title"
+                                                             data-i18n="Dashboard">Aide</span></a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li><a href="/aide_Actes"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Aide-Gestion des acte</span></a></li>
+                                <li><a href="/aide_GestBD"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Aide-Gestion BD</span></a></li>
+        
+                                <li><a href="/aide-Supp"><i class="material-icons">radio_button_unchecked</i><span
+                                data-i18n="Modern">Support en ligne</span></a></li>
+                </ul>
+            </div>
+          
         </li>
     </ul>
     <div class="navigation-background"></div>

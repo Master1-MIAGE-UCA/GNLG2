@@ -36,6 +36,7 @@ class UsersImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValida
         $MailHelperTools = new MailHelperTools();
 
         $user = new User([
+            //BD                //CSV
             'login' => $row['login'],
             'hashpass' => $row['password'],
             'nom' => $row['nom'],
