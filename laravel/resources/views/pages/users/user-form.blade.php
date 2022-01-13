@@ -140,7 +140,8 @@
 
 
 <script>
-
-
-
+    $(".select2").select2({
+        dropdownAutoWidth: true,
+        dropdownParent: $('#modal_user'),
+    });
 </script>

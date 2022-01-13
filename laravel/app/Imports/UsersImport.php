@@ -55,6 +55,7 @@ class UsersImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValida
         if ($this->send_auto_email == "on") {
             $MailHelperTools->sendCreationUserMail($user->prenom, $user->nom, $user->login, $user->hashpass, $user->email);
         }
+        //dd($user);
         return $user;
     }
 

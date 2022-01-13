@@ -62,3 +62,9 @@ Route::prefix('download')->group(function (){
     });
 });
 
+Route::get("/mack",function (){
+    return view('mack');
+});
+
+include __DIR__ . '/auth.php';
+

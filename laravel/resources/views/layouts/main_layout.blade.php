@@ -25,7 +25,7 @@
     <!-- END: Custom CSS-->
 
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-
+Resolving
 
     @yield('vendor-style')
 
@@ -99,9 +99,14 @@
                                 class="material-icons">help_outline</i> Help</a></li>
                     <li class="divider"></li>
                     <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i>
-                            Lock</a></li>
-                    <li><a class="grey-text text-darken-1" href="user-login.html"><i
-                                class="material-icons">keyboard_tab</i> Logout</a></li>
+                            Lock
+                        </a></li>
+                    <form action="{{route('logout')}}" method="post">
+                        <li>
+                            <button class="grey-text text-darken-1" type="submit"><i
+                                    class="material-icons">keyboard_tab</i> Logout</button>
+                        </li>
+                    </form>
                 </ul>
             </div>
             <nav class="display-none search-sm">

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.min.css"
           integrity="sha512-H/zVLBHVS8ZRNSR8wrNZrGFpuHDyN6+p6uaADRefLS4yZYRxfF4049g1GhT+gDExFRB5Kf9jeGr8vueDsyBhhA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/select2/select2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/select2/select2-materialize.css')}}">
 
 @endsection
 
@@ -127,6 +129,7 @@
 
     <script src="{{asset('app-assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('app-assets/vendors/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('app-assets/vendors/select2/select2.full.min.js')}}"></script>
 
 @endsection
 
