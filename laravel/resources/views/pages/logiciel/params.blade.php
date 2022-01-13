@@ -39,39 +39,41 @@
                             </div>
                         </div>
                         <div id="html-view-validations">
-                            <form class="formParams" id="formParams" method="get">
+                            <form  id="formParams" >
+                            
+                            
                                 <div class="row">
                                     <div class="input-field col s12">
 
-                                        <input class="validate" id="valeur" name="valeur" type="text" value="">
-                                        <label for="valeur" class="active">Nom du site principal</label>
+                                        <input class="validate" id="siteName" name="siteName" type="text" value="{{$siteName->valeur}}">
+                                        <label for="siteName" class="active">Nom du site principal</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <label for="cemail0" class="active">URL du site principal</label>
-                                        <input class="validate" required id="cemail0" type="text" name="cemail0">
+                                        <label for="urlSite" class="active">URL du site principal</label>
+                                        <input class="validate"  id="urlSite" type="text" name="urlSite" value="{{$urlSite->valeur}}" >
                                     </div>
                                     <div class="input-field col s12">
-                                        <label for="password0">Eléments affichés par page</label>
-                                        <input class="validate" required id="password0" type="text" name="password0">
+                                        <label for="maxPage" class="active">Eléments affichés par page</label>
+                                        <input class="validate"  id="maxPage" type="text" name="maxPage" value="{{$maxPage->valeur}}" >
                                     </div>
                                     <div class="input-field col s12">
-                                        <label for="cpassword0">Eléments par page (mode administration)</label>
-                                        <input class="validate" required id="cpassword0" type="text" name="cpassword0">
+                                        <label for="maxPageAdm" class="active">Eléments par page (mode administration)</label>
+                                        <input class="validate"  id="maxPageAdm" type="text" name="maxPageAdm" value="{{$maxPageAdm->valeur}}">
                                     </div>
                                     <div class="input-field col s12">
-                                        <label for="curl0">Basculement en mode alphabétique</label>
-                                        <input class="validate" id="curl0" type="url" name="curl0">
+                                        <label for="maxPatr" class="active">Basculement en mode alphabétique</label>
+                                        <input class="validate" id="maxPatr" type="text" name="maxPatr" value="{{$maxPatr->valeur}}">
                                     </div>
 
                                     <div class="input-field col s12">
-                                        <label for="curl0">Mode alphabétique (mode administration)</label>
-                                        <input class="validate" id="" type="text" name="curl0">
+                                        <label for="maxPatrAdm" class="active">Mode alphabétique (mode administration)</label>
+                                        <input class="validate" id="maxPatrAdm" type="text" name="maxPatrAdm" value="{{$maxPatrAdm->valeur}}">
                                     </div>
                                     <div class="col s12">
 
                                         <p>
                                             <label>
-                                                <input class="validate" required id="tnc_select1" type="checkbox"/>
+                                                <input class="validate"  id="tnc_select1" type="checkbox" value="{{$showDate->valeur}}" {{ ($showDate->valeur=='1')?'checked':''}}/>
                                                 <span>Accueil : affichage des dates min. et max.</span>
 
                                             </label>
@@ -83,7 +85,7 @@
 
                                         <p>
                                             <label>
-                                                <input class="validate" required id="tnc_select1" type="checkbox"/>
+                                                <input class="validate"  id="tnc_select1" type="checkbox" value="{{$distAnn->valeur}}"{{ ($distAnn->valeur=='1')?'checked':''}}/>
                                                 <span>Accueil : lien vers la distribution des années</span>
 
                                             </label>
@@ -95,7 +97,7 @@
 
                                         <p>
                                             <label>
-                                                <input class="validate" required id="tnc_select1" type="checkbox"/>
+                                                <input class="validate"  id="tnc_select1" type="checkbox"  value="{{$showType->valeur}}"{{ ($showType->valeur=='1')?'checked':''}}/>
                                                 <span>Accueil : afficher tous les types d'actes</span>
 
                                             </label>
@@ -109,12 +111,12 @@
                                         <h6 class="card-title">Tables : affichages des années seulement</h6>
 
                                         <div class="input-field">
-                                            <select class="select2 browser-default">
+                                            <select class="select2 browser-default" id="show_Annee" name="show_Annee">
                                                 <optgroup>
-                                                    <option value="romboid">0- Toujours date détaillé</option>
-                                                    <option value="trapeze">1- Années si non connecté</option>
-                                                    <option value="triangle">2- Années si non déposant</option>
-                                                    <option value="polygon">3- Années dans tous les cas</option>
+                                                    <option value="0" {{($ann->valeur == 0)?'selected':''}} >0- Toujours date détaillé</option>
+                                                    <option value="1" {{($ann->valeur == 1)?'selected':''}} >1- Années si non connecté</option>
+                                                    <option value="2" {{($ann->valeur == 2)?'selected':''}}>2- Années si non déposant</option>
+                                                    <option value="3" {{($ann->valeur == 3)?'selected':''}} >3- Années dans tous les cas</option>
                                                 </optgroup>
 
                                             </select>
@@ -125,7 +127,7 @@
 
                                         <p>
                                             <label>
-                                                <input class="validate" required id="tnc_select1" type="checkbox"/>
+                                                <input class="validate"  id="image" type="checkbox" value="{{$image->valeur}}" {{ ($image->valeur=='1')?'checked':''}}/>
                                                 <span>Actes : images seulement si login</span>
 
                                             </label>
@@ -136,32 +138,34 @@
 
 
                                     <div class="input-field col s12">
-                                        <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate"
-                                                  required></textarea>
-                                        <label for="ccomment0">Taxe d'invertissement</label>
+                                  
+                                    <label for="aver" class="active">Taxe d'invertissement</label>
+                                        <input class="validate" id="aver" type="text" name="aver" value="{{$aver->valeur}}">
+                                       
                                     </div>
                                     <div class="input-field col s12">
-                                        <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate"
-                                                  required></textarea>
-                                        <label for="ccomment0">Pied de page</label>
+                                        <input id="piedPage" name="piedPage" class="materialize-textarea validate"
+                                        value="{{$piedPage->valeur}}" />
+                                        <label for="piedPage" class="active">Pied de page</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate"
-                                                  required></textarea>
-                                        <label for="ccomment0">Zone de pub sous le menu</label>
+                                        <input id="pubZone" name="pubZone" class="materialize-textarea validate"
+                                        value="{{$pubZone->valeur}}" />
+                                        <label for="pubZone" class="active">Zone de pub sous le menu</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate"
-                                                  required></textarea>
-                                        <label for="ccomment0">Message acceptation des cookies</label>
+                                    <label for="cookie" class="active">Message acceptation des cookies</label>
+                                        <input id="cookie" name="cookie" class="materialize-textarea validate"
+                                        value="{{$cookie->valeur}}" >
+                                        
                                     </div>
                                     <div class="input-field col s12">
-                                        <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate"
-                                                  required></textarea>
-                                        <label for="ccomment0">URL d'une page sur les cookies</label>
+                                        <input id="cookieUrl" name="cookieUrl" class="materialize-textarea validate"
+                                        value="{{$cookieUrl->valeur}}"/>
+                                        <label for="cookieUrl" class="active">URL d'une page sur les cookies</label>
                                     </div>
                                     <div class="col m6 s12">
-                                        <h6 class="card-title">Style du message cookies</h6>
+                                        <h6 class="card-title" >Style du message cookies</h6>
 
                                         <div class="input-field">
                                             <select class="select2 browser-default">
@@ -181,7 +185,7 @@
 
                                     <div class="input-field col s12">
                                         <button class="btn waves-effect waves-light right" type="submit" name="action"
-                                                onclick="_AjouterParams()" id="span_btn_submit_formParams">Enregistrer
+                                               id="span_btn_submit_formParams">Enregistrer
                                             <i class="material-icons right">send</i>
                                         </button>
                                         <div class="col m4 s12 mb-3">
@@ -217,6 +221,7 @@
                 $("#span_btn_submit_formParams").html('<i class="fa fa-spinner fa-spin"></i>');
                 //var formData = $(form).serializeArray(); // convert form to array
                 var formData = new FormData($(form)[0]);
+             
                 $.ajax({
                     type: "POST",
                     url: "/form/param",
@@ -246,4 +251,9 @@
         });
 
     </script>
+@endsection
+@section('vendor-script')
+<script src="{{asset('app-assets/vendors/jquery-validation/jquery.validate.min.js')}}"></script>
+<script src="{{asset('app-assets/vendors/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('app-assets/vendors/select2/select2.full.min.js')}}"></script>
 @endsection

@@ -245,7 +245,7 @@
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="accordion">
         <li class="active bold"><a class="waves-effect waves-cyan " href="/"><i
-                    class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
+                    class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Acceuil</span></a>
         </li>
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
                     class="material-icons">settings</i><span class="menu-title"

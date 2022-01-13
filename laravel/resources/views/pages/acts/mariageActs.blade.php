@@ -31,6 +31,27 @@
                 Actualiser</button>
             <button class="btn waves-effect waves-light red btn-small" type="button" onclick="_deleteMariageActs(0)"><i
                     class="material-icons left">delete_forever</i> Supprimer actes de mariage </button>
+                    <button
+                class="btn btn-floating ml-1 waves-effect waves-light green darken-4 border-round z-depth-3 floting_btn pull-right"
+                type="button"
+                onclick="exportMariageActsToExcel()" title="Exporter en Excel"><i
+                    class="material-icons left">file_upload</i> Exporter vers Excel<i class="material-icons right"
+                                                                                      id="exportMariageActsToExcelButton"></i>
+            </button>
+            <button
+                class="btn btn-floating ml-1 waves-effect waves-light black-text lime lighten-1 border-round z-depth-3 floting_btn pull-right"
+                type="button"
+                onclick="exportMariageActsToCSV()" title="Exporter en CSV"><i
+                    class="material-icons left">file_upload</i>Exporter vers CSV<i class="material-icons right"
+                                                                                      id="exportMariageActsToCSVButton"></i>
+            </button>
+            <button
+                class="btn btn-floating ml-1 waves-effect waves-light black-text border-round z-depth-3 floting_btn pull-right"
+                placeholder="importer" type="button"
+                onclick="importMariageActs()" title="Importer CSV ou Excel"><i
+                    class="material-icons left">file_download</i>importer vers CSV ou Excel<i class="material-icons right"
+                                                                                      id="importMariageActsToCSVButton"></i>
+            </button>
         </div>
         <!-- end::buttons -->
 
@@ -69,6 +90,7 @@
     <!-- MariageActs list ends -->
     <x-modal-form id="mariageAct_show" formName="show" formContent="showMariageActContent"/>
     <x-modal-form id="mariageAct" formName="formMariageAct" formContent="formMariageActContent"/>
+    <x-modal-form id="mariageActs_import" formName="formImportMariageActs" formContent="importMariageActsContent"/>
 
 @endsection
 
@@ -121,6 +143,37 @@
                     },
                     complete: function (resultat, statut) {
                         $("#span_btn_submit_formMariageAct").html("");
+                        _reload_MariageActs_datatable();
+                    },
+                });
+                return false;
+            },
+        });
+         //import form
+         $("#formImportMariageActs").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                $("#span_btn_submit_formImportMariageActs").html('<i class="fa fa-spinner fa-spin"></i>');
+                //var formData = $(form).serializeArray(); // convert form to array
+                var formData = new FormData($(form)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/import/mariageActs",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        swal("Succes", result, "success");
+                        $("#modal_mariageActs_import").modal("close");
+
+                    },
+                    error: function (error) {
+                        swal("Erreur", "Erreur lors de l\'importation", "error");
+                    },
+                    complete: function (resultat, statut) {
+                        $("#span_btn_submit_formImportMariageActs").html("");
                         _reload_MariageActs_datatable();
                     },
                 });
@@ -272,7 +325,38 @@ function _showMariageAct(id) {
                 },
             });
         }
+        function exportMariageActsToExcel() {
+            var preloader = `<x-preloader />`;
+            var url = '/export/mariageActs/excel';
+            $("#exportMariageActsToExcelButton").html(preloader);
+            window.location.href = url;
+            $("#exportMariageActsToExcelButton").html("");
+            swal("Succès", "Le fichier EXCEL a bien été télécharger, vérifier vos téléchargements", "success");
 
+        }
+
+        function exportMariageActsToCSV() {
+            var preloader = `<x-preloader />`;
+            var url = '/export/mariageActs/csv';
+            $("#exportMariageActsToCSVButton").html(preloader);
+            window.location.href = url;
+            $("#exportMariageActsToCSVButton").html("");
+            swal("Succès", "Le fichier CSV a bien été télécharger, vérifier vos téléchargements", "success");
+
+        }
+        function importMariageActs() {
+            var preloader = `<x-preloader />`;
+            $("#modal_mariageActs_import").modal("open");
+            $("#importMariageActsContent").html(preloader);
+            $.ajax({
+                url: "/import/mariageActs",
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#importMariageActsContent").html(html);
+                },
+            });
+        }
 
     </script>
 

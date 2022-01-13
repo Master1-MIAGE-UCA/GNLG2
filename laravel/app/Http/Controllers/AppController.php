@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Exports\UserExport;
+use App\Exports\BornActExport;
+use App\Exports\MariageActExport;
+use App\Exports\DeathActExport;
+use App\Exports\DiversActExport;
 use App\Imports\UsersImport;
+use App\Imports\BornActsImport;
+use App\Imports\MariageActsImport;
+use App\Imports\DeathActsImport;
+use App\Imports\DiversActsImport;
 use App\Library\Services\DbHelperTools;
 use App\Library\Services\MailHelperTools;
 use App\Models\User;
 use App\Models\BornAct;
 use App\Models\MariageAct;
+use App\Models\Parametre;
 use App\Models\DiverAct;
 use App\Models\DeathAct;
 use Carbon\Carbon;
@@ -21,41 +30,113 @@ class AppController extends Controller
 {
     //
     public function storeFormParam(Request $request){
-
+        //var_dump($request->all());die();
         //var_dump($request->all());die();
         $success = false;
         $msg = 'Les parametres ne sont pas bien enregistrer  ';
         if ($request->isMethod('post')) {
-
-
-
-
-            /*
-            //Begin show_logo_sign_in
-            if (isset($request->show_logo_sign_in)) {
-                $show_logo_sign_in = $request->show_logo_sign_in;
-                Setting::where('name', 'show_logo_sign_in')->update(['value' => $show_logo_sign_in]);
+              //Nom du site
+            if (isset($request->siteName)) {
+                $siteName= $request->siteName;
+                Parametre::where('param', 'SITENAME')->update(['valeur' => $siteName]);
             }
-            //End show_logo_sign_in
-
-
-            //Begin app_title
-            if (isset($request->app_title)) {
-                $app_title = $request->app_title;
-                Setting::where('name', 'app_title')->update(['value' => $app_title]);
+            //URL de site
+            if (isset($request->urlSite)) {
+                $urlSite= $request->urlSite;
+                Parametre::where('param', 'SITE_URL')->update(['valeur' => $urlSite]);
             }
-            //End app_title
-
-            //Begin language
-            if (isset($request->language)) {
-                $language = $request->language;
-                Setting::where('name', 'language')->update(['value' => $language]);
+            // nombre max de page
+            if (isset($request->maxPage)) {
+                $maxPage= $request->maxPage;
+                Parametre::where('param', 'MAX_PAGE')->update(['valeur' => $maxPage]);
             }
-            //End language
-
-            */
-
-
+            //nombre max de page admin
+            if (isset($request->maxPageAdm)) {
+                $maxPageAdm= $request->maxPageAdm;
+                Parametre::where('param', 'MAX_PAGE_ADM')->update(['valeur' => $maxPageAdm]);
+            }
+            //mode alphabétique 
+            if (isset($request->maxPatr)) {
+                $maxPatr= $request->maxPatr;
+                Parametre::where('param', 'MAX_PATR')->update(['valeur' => $maxPatr]);
+            }
+             //mode alphabétique Admin
+             if (isset($request->maxPatrAdm)) {
+                $maxPatrAdm= $request->maxPatrAdm;
+                Parametre::where('param', 'MAX_PATR_ADM')->update(['valeur' => $maxPatrAdm]);
+            }
+              //Date
+              if (isset($request->showDate)) {
+                $showDate= $request->showDate;
+                Parametre::where('param', 'SHOW_DATES')->update(['valeur' => $showDate]);
+            }
+              //Distrubition
+              if (isset($request->distAnn)) {
+                $distAnn= $request->distAnn;
+                Parametre::where('param', 'SHOW_DISTRIBUTION')->update(['valeur' => $distAnn]);
+            }
+              //Type
+              if (isset($request->showType)) {
+                $showType= $request->showType;
+                Parametre::where('param', 'SHOW_ALLTYPES')->update(['valeur' => $showType]);
+            }
+                //Image
+                if (isset($request->image)) {
+                    $image= $request->image;
+                    Parametre::where('param', 'JPG_SI_LOGIN')->update(['valeur' => $image]);
+                }
+                    //Avertissement
+              if (isset($request->aver)) {
+                $aver= $request->aver;
+                Parametre::where('param', 'AVERTISMT')->update(['valeur' => $aver]);
+            }
+                //pied page
+                if (isset($request->piedPage)) {
+                    $piedPage= $request->piedPage;
+                    Parametre::where('param', 'PIED_PAGE')->update(['valeur' => $piedPage]);
+                }
+                //publication zone
+                if (isset($request->pubZone)) {
+                    $pubZone= $request->pubZone;
+                    Parametre::where('param', 'PUB_ZONE_MENU')->update(['valeur' => $pubZone]);
+                }
+                //Cookie
+                if (isset($request->cookie)) {
+                    $cookie= $request->cookie;
+                    Parametre::where('param', 'COOKIE_MESSAGE')->update(['valeur' => $cookie]);
+                }
+                //Cookie URL
+                if (isset($request->cookieUrl)) {
+                    $cookieUrl= $request->cookieUrl;
+                    Parametre::where('param', 'COOKIE_URL_INFO')->update(['valeur' => $cookieUrl]);
+                }
+                 //Cookie Style
+                 if (isset($request->cookieStyle)) {
+                    $cookieStyle= $request->cookieStyle;
+                    Parametre::where('param', 'COOKIE_STYLE')->update(['valeur' => $cookieStyle]);
+                }
+                 //full url
+                 if (isset($request->fullUrl)) {
+                    $fullUrl= $request->fullUrl;
+                    Parametre::where('param', 'FULL_URL')->update(['valeur' => $fullUrl]);
+                }
+                 // url jpg
+                 if (isset($request->urlJpg)) {
+                    $urlJpg= $request->urlJpg;
+                    Parametre::where('param', 'URL_JPG')->update(['valeur' => $urlJpg]);
+                }
+                if (isset($request->showNull)) {
+                    $showNull= $request->showNull;
+                    Parametre::where('param', 'SHOW_NULL')->update(['valeur' => $showNull]);
+                }
+                if (isset($request->showDeposant)) {
+                    $showDeposant= $request->showDeposant;
+                    Parametre::where('param', 'SHOW_DEPOSANT')->update(['valeur' => $showDeposant]);
+                }
+                if (isset($request->show_Annee)) {
+                    $show_Annee= $request->show_Annee;
+                    Parametre::where('param', 'ANNEE_TABLE')->update(['valeur' => $show_Annee]);
+                }
 
                 $success = true;
                 $msg = 'Les parametres sont bien été enregistrer';
@@ -82,7 +163,30 @@ class AppController extends Controller
     }
     function paramsPage()
     {
-        return view('pages.logiciel.params');
+        $siteName=Parametre::where('param','LIKE','SITENAME')->first();
+        $urlSite=Parametre::where('param','LIKE','SITE_URL')->first();
+        $maxPage=Parametre::where('param','LIKE','MAX_PAGE')->first();
+        $maxPageAdm=Parametre::where('param','LIKE','MAX_PAGE_ADM')->first();
+        $maxPatr=Parametre::where('param','LIKE','MAX_PATR')->first();
+        $maxPatrAdm=Parametre::where('param','LIKE','MAX_PATR_ADM')->first();
+        $showDate=Parametre::where('param','LIKE','SHOW_DATES')->first();
+        $distAnn=Parametre::where('param','LIKE','SHOW_DISTRIBUTION')->first();
+        $showType=Parametre::where('param','LIKE','SHOW_ALLTYPES')->first();
+        $image=Parametre::where('param','LIKE','JPG_SI_LOGIN')->first();
+        $aver=Parametre::where('param','LIKE','AVERTISMT')->first();
+        $piedPage=Parametre::where('param','LIKE','PIED_PAGE')->first();
+        $pubZone=Parametre::where('param','LIKE','PUB_ZONE_MENU')->first();
+        $cookie=Parametre::where('param','LIKE','COOKIE_MESSAGE')->first();
+        $cookieUrl=Parametre::where('param','LIKE','COOKIE_URL_INFO')->first();
+        $cookieStyle=Parametre::where('param','LIKE','COOKIE_STYLE')->first();
+        $fullUrl=Parametre::where('param','LIKE','FULL_URL')->first();
+        $urlJpg=Parametre::where('param','LIKE','URL_JPG')->first();
+        $showNull=Parametre::where('param','LIKE','SHOW_NULL')->first();
+        $showDeposant=Parametre::where('param','LIKE','SHOW_DEPOSANT')->first();
+        $ann=Parametre::where('param','LIKE','ANNEE_TABLE')->first();
+        
+       
+        return view('pages.logiciel.params',compact('siteName','urlSite','maxPage','maxPageAdm','maxPatr','maxPatrAdm','showDate','distAnn','showType','image','aver','piedPage','pubZone','cookie','cookieUrl','cookieStyle','fullUrl','urlJpg','showNull','showDeposant','ann'));
     }
 
     public function dashboardPage()
@@ -218,6 +322,22 @@ class AppController extends Controller
     {
         return view('pages.users.users-import');
     }
+    function importBornActsPage()
+    {
+        return view('pages.acts.bornActs-import');
+    }
+    function importMariageActsPage()
+    {
+        return view('pages.acts.mariageActs-import');
+    }
+    function importDeathActsPage()
+    {
+        return view('pages.acts.deathActs-import');
+    }
+    function importDiversActsPage()
+    {
+        return view('pages.acts.diversActs-import');
+    }
 
 
     public
@@ -289,12 +409,67 @@ class AppController extends Controller
             'msg' => $msg,
         ]);
     }
+    public function exportDiversActsToExcel()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "diversActs_" . $date . ".xlsx";
+        return Excel::download(new DiversActExport(), $name);
 
+    }
+
+    public function exportDiversActsToCSV()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "diversActs_" . $date . ".csv";
+        return Excel::download(new DiversActExport(), $name);
+    }
+    public function exportDeathActsToExcel()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "deathActs_" . $date . ".xlsx";
+        return Excel::download(new DeathActExport(), $name);
+
+    }
+
+    public function exportDeathActsToCSV()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "deathActs_" . $date . ".csv";
+        return Excel::download(new DeathActExport(), $name);
+    }
+    public function exportMariageActsToExcel()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "mariageActs_" . $date . ".xlsx";
+        return Excel::download(new MariageActExport(), $name);
+
+    }
+
+    public function exportMariageActsToCSV()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "mariageActs_" . $date . ".csv";
+        return Excel::download(new MariageActExport(), $name);
+    }
     public function exportUsersToExcel()
     {
         $date = Carbon::now()->format("jmY_his");
         $name = "users_" . $date . ".xlsx";
         return Excel::download(new UserExport(), $name);
+
+    }
+
+    public function exportBornActsToCSV()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "bornActs_" . $date . ".csv";
+        return Excel::download(new BornActExport(), $name);
+    }
+    public function exportBornActsToExcel()
+    {
+        $date = Carbon::now()->format("jmY_his");
+        $name = "bornActs_" . $date . ".xlsx";
+        return Excel::download(new BornActExport(), $name);
 
     }
 
@@ -312,6 +487,38 @@ class AppController extends Controller
         $msg = "Les utilisateurs ont bien été importer";
         Excel::import(new UsersImport(request()->auto_mail_send), request()->file('import-users-files'));
         return (request()->auto_mail_send == "on" ? $msg . ' et les emails d\'informations ont été bien envoyé' : $msg);
+    }
+    public function importBornActs()
+    {
+        // var_dump($request->file());die();
+
+        $msg = "Les actes de naissance ont bien été importer";
+        Excel::import(new BornActsImport(), request()->file('import-bornActs-files'));
+        return ($msg);
+    }
+    public function importDiversActs()
+    {
+        // var_dump($request->file());die();
+
+        $msg = "Les actes divers ont bien été importer";
+        Excel::import(new DiversActsImport(), request()->file('import-diversActs-files'));
+        return ($msg);
+    }
+    public function importMariageActs()
+    {
+        // var_dump($request->file());die();
+
+        $msg = "Les actes de mariage ont bien été importer";
+        Excel::import(new MariageActsImport(), request()->file('import-mariageActs-files'));
+        return ($msg);
+    }
+    public function importDeathActs()
+    {
+        // var_dump($request->file());die();
+
+        $msg = "Les actes de décés ont bien été importer";
+        Excel::import(new DeathActsImport(), request()->file('import-deathActs-files'));
+        return ($msg);
     }
     function storeFormBornAct(Request $request)
     {

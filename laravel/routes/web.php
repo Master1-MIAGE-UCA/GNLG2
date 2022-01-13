@@ -58,7 +58,7 @@ Route::get('/show/bornAct/{id}', [AppController::class, 'bornActShow']);
 Route::get('/show/mariageAct/{id}', [AppController::class, 'mariageActShow']);
 Route::get('/show/deathAct/{id}', [AppController::class, 'deathActShow']);
 Route::get('/show/diversAct/{id}', [AppController::class, 'diversActShow']);
-
+Route::post('/form/param', [AppController::class, 'storeFormParam']);
 Route::get('/form/user/{id}', [AppController::class, 'userForm']);
 Route::post('/form/user', [AppController::class, 'storeFormUser']);
 Route::get('/form/bornAct/{id}', [AppController::class, 'bornActForm']);
@@ -69,7 +69,7 @@ Route::get('/form/mariageAct/{id}', [AppController::class, 'mariageActForm']);
 Route::post('/form/mariageAct', [AppController::class, 'storeFormMariageAct']);
 Route::get('/form/diversAct/{id}', [AppController::class, 'diversActForm']);
 Route::post('/form/diversAct', [AppController::class, 'storeFormDiversAct']);
-Route::post('/form/param', [AppController::class, 'storeFormParam']);
+
 
 
 
@@ -78,11 +78,45 @@ Route::prefix('export')->group(function (){
         Route::get('excel',[AppController::class,'exportUsersToExcel']);
         Route::get('csv',[AppController::class,'exportUsersToCSV']);
     });
+    Route::prefix('bornActs')->group(function (){
+        Route::get('excel',[AppController::class,'exportBornActsToExcel']);
+        Route::get('csv',[AppController::class,'exportBornActsToCSV']);
+    });
+    Route::prefix('mariageActs')->group(function (){
+        Route::get('excel',[AppController::class,'exportMariageActsToExcel']);
+        Route::get('csv',[AppController::class,'exportMariageActsToCSV']);
+    });
+    Route::prefix('deathActs')->group(function (){
+        Route::get('excel',[AppController::class,'exportDeathActsToExcel']);
+        Route::get('csv',[AppController::class,'exportDeathActsToCSV']);
+    });
+    Route::prefix('diversActs')->group(function (){
+        Route::get('excel',[AppController::class,'exportDiversActsToExcel']);
+        Route::get('csv',[AppController::class,'exportDiversActsToCSV']);
+    });
 });
 Route::prefix('import')->group(function () {
         Route::get('users', [AppController::class, 'importUsersPage']);
         Route::post('users', [AppController::class, 'importUsers']);
+       
 });
+Route::prefix('import')->group(function () {
+    Route::get('bornActs', [AppController::class, 'importBornActsPage']);
+    Route::post('bornActs', [AppController::class, 'importBornActs']);
+});
+Route::prefix('import')->group(function () {
+    Route::get('mariageActs', [AppController::class, 'importMariageActsPage']);
+    Route::post('mariageActs', [AppController::class, 'importMariageActs']);
+});
+Route::prefix('import')->group(function () {
+    Route::get('deathActs', [AppController::class, 'importDeathActsPage']);
+    Route::post('deathActs', [AppController::class, 'importDeathActs']);
+});
+Route::prefix('import')->group(function () {
+    Route::get('diversActs', [AppController::class, 'importDiversActsPage']);
+    Route::post('diversActs', [AppController::class, 'importDiversActs']);
+});
+
 
 Route::prefix('download')->group(function (){
     Route::prefix('example')->group(function (){

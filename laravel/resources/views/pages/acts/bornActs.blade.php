@@ -32,6 +32,27 @@
                 Actualiser</button>
             <button class="btn waves-effect waves-light red btn-small" type="button" onclick="_deleteBornActs(0)"><i
                     class="material-icons left">delete_forever</i> Supprimer actes de naissance </button>
+                    <button
+                class="btn btn-floating ml-1 waves-effect waves-light green darken-4 border-round z-depth-3 floting_btn pull-right"
+                type="button"
+                onclick="exportBornActsToExcel()" title="Exporter en Excel"><i
+                    class="material-icons left">file_upload</i> Exporter vers Excel<i class="material-icons right"
+                                                                                      id="exportBornActsToExcelButton"></i>
+            </button>
+            <button
+                class="btn btn-floating ml-1 waves-effect waves-light black-text lime lighten-1 border-round z-depth-3 floting_btn pull-right"
+                type="button"
+                onclick="exportBornActsToCSV()" title="Exporter en CSV"><i
+                    class="material-icons left">file_upload</i>Exporter vers CSV<i class="material-icons right"
+                                                                                      id="exportBornActsToCSVButton"></i>
+            </button>
+            <button
+                class="btn btn-floating ml-1 waves-effect waves-light black-text border-round z-depth-3 floting_btn pull-right"
+                placeholder="importer" type="button"
+                onclick="importBornActs()" title="Importer CSV ou Excel"><i
+                    class="material-icons left">file_download</i>importer vers CSV ou Excel<i class="material-icons right"
+                                                                                      id="importBornActsToCSVButton"></i>
+            </button>
         </div>
         <!-- end::buttons -->
 
@@ -69,6 +90,7 @@
     <!-- bornActs list ends -->
     <x-modal-form id="bornAct_show" formName="show" formContent="showBornActContent"/>
     <x-modal-form id="bornAct" formName="formBornAct" formContent="formBornActContent"/>
+    <x-modal-form id="bornActs_import" formName="formImportBornActs" formContent="importBornActsContent"/>
 @endsection
 
 
@@ -120,6 +142,37 @@
                     },
                     complete: function (resultat, statut) {
                         $("#span_btn_submit_formBornAct").html("");
+                        _reload_bornActs_datatable();
+                    },
+                });
+                return false;
+            },
+        });
+        //import form
+        $("#formImportBornActs").validate({
+            rules: {},
+            messages: {},
+            submitHandler: function (form) {
+                $("#span_btn_submit_formImportBornActs").html('<i class="fa fa-spinner fa-spin"></i>');
+                //var formData = $(form).serializeArray(); // convert form to array
+                var formData = new FormData($(form)[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/import/bornActs",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        swal("Succes", result, "success");
+                        $("#modal_bornActs_import").modal("close");
+
+                    },
+                    error: function (error) {
+                        swal("Erreur", "Erreur lors de l\'importation", "error");
+                    },
+                    complete: function (resultat, statut) {
+                        $("#span_btn_submit_formImportBornActs").html("");
                         _reload_bornActs_datatable();
                     },
                 });
@@ -265,6 +318,38 @@ function _showBornAct(id) {
                 dataType: "html",
                 success: function (html, status) {
                     $("#formBornActContent").html(html);
+                },
+            });
+        }
+        function exportBornActsToExcel() {
+            var preloader = `<x-preloader />`;
+            var url = '/export/bornActs/excel';
+            $("#exportBornActsToExcelButton").html(preloader);
+            window.location.href = url;
+            $("#exportBornActsToExcelButton").html("");
+            swal("Succès", "Le fichier EXCEL a bien été télécharger, vérifier vos téléchargements", "success");
+
+        }
+
+        function exportBornActsToCSV() {
+            var preloader = `<x-preloader />`;
+            var url = '/export/bornActs/csv';
+            $("#exportBornActsToCSVButton").html(preloader);
+            window.location.href = url;
+            $("#exportBornActsToCSVButton").html("");
+            swal("Succès", "Le fichier CSV a bien été télécharger, vérifier vos téléchargements", "success");
+
+        }
+        function importBornActs() {
+            var preloader = `<x-preloader />`;
+            $("#modal_bornActs_import").modal("open");
+            $("#importBornActsContent").html(preloader);
+            $.ajax({
+                url: "/import/bornActs",
+                type: "GET",
+                dataType: "html",
+                success: function (html, status) {
+                    $("#importBornActsContent").html(html);
                 },
             });
         }
