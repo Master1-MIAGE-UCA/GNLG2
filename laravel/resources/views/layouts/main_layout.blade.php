@@ -91,17 +91,8 @@
                 </ul>
                 <!-- profile-dropdown-->
                 <ul class="dropdown-content" id="profile-dropdown">
-                    <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i>
+                    <li><a class="grey-text text-darken-1" href="/account_settings"><i class="material-icons">person_outline</i>
                             Profile</a></li>
-                    <li><a class="grey-text text-darken-1" href="app-chat.html"><i class="material-icons">chat_bubble_outline</i>
-                            Chat</a></li>
-                    <li><a class="grey-text text-darken-1" href="page-faq.html"><i
-                                class="material-icons">help_outline</i> Help</a></li>
-                    <li class="divider"></li>
-                    <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i>
-                            Lock
-                        </a>
-                    </li>
                     <li>
                         <a class="grey-text text-darken-1" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="material-icons">keyboard_tab</i>

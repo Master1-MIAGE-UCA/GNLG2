@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -52,6 +53,7 @@ class AuthenticatedSessionController extends Controller
 
         if ($user) {
             Auth::login($user);
+            Session::put('connected_user', $user->ID);
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 

@@ -34,6 +34,8 @@ Route::get('/born-acts',[AppController::class,'bornActsPage']);
 Route::get('/mariage-acts',[AppController::class,'mariageActsPage']);
 Route::get('/death-acts',[AppController::class,'deathActsPage']);
 Route::get('/divers-acts',[AppController::class,'DiversActsPage']);
+Route::get('/account_settings',[AppController::class, 'AccountSettingsPage']);
+
 
 Route::prefix('api')->group(function () {
     Route::prefix('sdt')->group(function () {
@@ -69,6 +71,7 @@ Route::get('/form/mariageAct/{id}', [AppController::class, 'mariageActForm']);
 Route::post('/form/mariageAct', [AppController::class, 'storeFormMariageAct']);
 Route::get('/form/diversAct/{id}', [AppController::class, 'diversActForm']);
 Route::post('/form/diversAct', [AppController::class, 'storeFormDiversAct']);
+Route::post('/form/account_settings/change/password', [AppController::class, 'storeFormChangeAccountPassword']);
 
 
 
@@ -127,6 +130,8 @@ Route::prefix('download')->group(function (){
 Route::get("/mack",function (){
     return view('mack');
 });
+
+
 
 include __DIR__ . '/auth.php';
 
