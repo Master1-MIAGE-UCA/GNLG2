@@ -98,7 +98,7 @@ Route::prefix('export')->group(function (){
 Route::prefix('import')->group(function () {
         Route::get('users', [AppController::class, 'importUsersPage']);
         Route::post('users', [AppController::class, 'importUsers']);
-       
+
 });
 Route::prefix('import')->group(function () {
     Route::get('bornActs', [AppController::class, 'importBornActsPage']);
@@ -129,4 +129,8 @@ Route::get("/mack",function (){
 });
 
 include __DIR__ . '/auth.php';
+
+Route::fallback(function (){
+   return view('pages.errors.404');
+});
 
