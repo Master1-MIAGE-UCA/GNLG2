@@ -240,7 +240,15 @@
 
         //Validate form
         $("#formUser").validate({
-            rules: {},
+            rules : {
+                hashpass : {
+                    minlength : 8
+                },
+                conf_hashpass : {
+                    minlength : 8,
+                    equalTo : "#hashpass"
+                }
+            },
             messages: {},
             submitHandler: function (form) {
                 $("#span_btn_submit_formUser").html('<i class="fa fa-spinner fa-spin"></i>');
