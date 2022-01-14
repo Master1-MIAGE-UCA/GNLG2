@@ -25,7 +25,7 @@
     <!-- END: Custom CSS-->
 
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-Resolving
+    Resolving
 
     @yield('vendor-style')
 
@@ -100,13 +100,18 @@ Resolving
                     <li class="divider"></li>
                     <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i>
                             Lock
-                        </a></li>
-                    <form action="{{route('logout')}}" method="post">
-                        <li>
-                            <button class="grey-text text-darken-1" type="submit"><i
-                                    class="material-icons">keyboard_tab</i> Logout</button>
-                        </li>
-                    </form>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="grey-text text-darken-1" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="material-icons">keyboard_tab</i>
+                            Logout
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+
+                        </a>
+                    </li>
+
                 </ul>
             </div>
             <nav class="display-none search-sm">
@@ -235,7 +240,7 @@ Resolving
 
 
 <!-- BEGIN: SideNav-->
-<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded" >
+<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
     <div class="brand-sidebar">
         <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="/"><img class="hide-on-med-and-down "
                                                                               src="{{asset('app-assets/images/favicon/expoactes.jpg')}}"
@@ -261,19 +266,19 @@ Resolving
                                 data-i18n="Modern">Administration du logiciel</span></a></li>
                 </ul>
             </div>
-          
+
         </li>
 
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
                     class="material-icons">people</i><span class="menu-title"
-                                                             data-i18n="Dashboard">Gestion des utilisateurs</span></a>
+                                                           data-i18n="Dashboard">Gestion des utilisateurs</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li><a href="/users"><i class="material-icons">radio_button_unchecked</i><span
                                 data-i18n="Modern">Utilisateurs</span></a></li>
                 </ul>
             </div>
-          
+
         </li>
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
                     class="material-icons">note_add</i><span class="menu-title"
@@ -297,19 +302,19 @@ Resolving
         </li>
         <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i
                     class="material-icons">help</i><span class="menu-title"
-                                                             data-i18n="Dashboard">Aide</span></a>
+                                                         data-i18n="Dashboard">Aide</span></a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li><a href="/aide_Actes"><i class="material-icons">radio_button_unchecked</i><span
                                 data-i18n="Modern">Aide-Gestion des acte</span></a></li>
-                                <li><a href="/aide_GestBD"><i class="material-icons">radio_button_unchecked</i><span
+                    <li><a href="/aide_GestBD"><i class="material-icons">radio_button_unchecked</i><span
                                 data-i18n="Modern">Aide-Gestion BD</span></a></li>
-        
-                                <li><a href="/aide-Supp"><i class="material-icons">radio_button_unchecked</i><span
+
+                    <li><a href="/aide-Supp"><i class="material-icons">radio_button_unchecked</i><span
                                 data-i18n="Modern">Support en ligne</span></a></li>
                 </ul>
             </div>
-          
+
         </li>
     </ul>
     <div class="navigation-background"></div>
