@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
 
         $loginRequest = new LoginRequest;
 
-        $user = User::where('email', '=', $request->email, 'and')->where('hashpass', '=', $request->password)->first();
+        $user = User::where('email', '=', $request->email, 'and')->where('hashpass', '=', sha1($request->password))->first();
         /* if ($user) {
 
 

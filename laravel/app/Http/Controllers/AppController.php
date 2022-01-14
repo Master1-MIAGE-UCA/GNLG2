@@ -55,7 +55,7 @@ class AppController extends Controller
                 $maxPageAdm= $request->maxPageAdm;
                 Parametre::where('param', 'MAX_PAGE_ADM')->update(['valeur' => $maxPageAdm]);
             }
-            //mode alphabétique 
+            //mode alphabétique
             if (isset($request->maxPatr)) {
                 $maxPatr= $request->maxPatr;
                 Parametre::where('param', 'MAX_PATR')->update(['valeur' => $maxPatr]);
@@ -184,8 +184,8 @@ class AppController extends Controller
         $showNull=Parametre::where('param','LIKE','SHOW_NULL')->first();
         $showDeposant=Parametre::where('param','LIKE','SHOW_DEPOSANT')->first();
         $ann=Parametre::where('param','LIKE','ANNEE_TABLE')->first();
-        
-       
+
+
         return view('pages.logiciel.params',compact('siteName','urlSite','maxPage','maxPageAdm','maxPatr','maxPatrAdm','showDate','distAnn','showType','image','aver','piedPage','pubZone','cookie','cookieUrl','cookieStyle','fullUrl','urlJpg','showNull','showDeposant','ann'));
     }
 
@@ -375,7 +375,7 @@ class AppController extends Controller
             $data = array(
                 'ID' => $request->ID,
                 'login' => $request->login,
-                'hashpass' => $request->hashpass,
+                'hashpass' => sha1($request->hashpass),
                 'nom' => $request->nom,
                 'prenom' => $request->prenom,
                 'email' => $request->email,
@@ -403,7 +403,7 @@ class AppController extends Controller
                 //Si c'est la création de l'utilisateur et il est bien enregistrer alors envoie lui un email
                 if ($data['ID'] == 0 && $data['auto_mail_send'] == 'on') {
 
-                    $MailHelperTools->sendCreationUserMail($data['prenom'], $data['nom'], $data['login'], $data['hashpass'], $data['email']);
+                    $MailHelperTools->sendCreationUserMail($data['prenom'], $data['nom'], $data['login'], $request->hashpass, $data['email']);
                     $msg .= 'et l\'email est bien été envoyé';
                 }
 

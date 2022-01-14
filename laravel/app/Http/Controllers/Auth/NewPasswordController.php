@@ -46,7 +46,7 @@ class NewPasswordController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
-                    'hashpass' => $request->password,
+                    'hashpass' => sha1($request->password),
                     'remember_token' => Str::random(60),
                 ])->save();
 
